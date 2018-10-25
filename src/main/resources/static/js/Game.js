@@ -1,9 +1,12 @@
 
-var PLAYGROUND_HEIGHT= 2000;
-var PLAYGROUND_WIDTH = 2000;
+var PLAYGROUND_HEIGHT= 500;
+var PLAYGROUND_WIDTH = 700;
 var playerAnimation= new Array();
-var playerx=500;
-var playery=500;
+var playerx=10;
+var playery=10;
+var playerWidth=120;
+var playerheight=46;
+
 $(function(){
 	
 	
@@ -18,9 +21,9 @@ $(function(){
 	
 	$("#playground").playground({height: PLAYGROUND_HEIGHT, width: PLAYGROUND_WIDTH})
         .addGroup("background",{width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT}).end()
-        .addGroup("players", {posx: PLAYGROUND_WIDTH/2, posy: PLAYGROUND_HEIGHT/2, width: 100, height: 26});
+        .addGroup("players", {posx: PLAYGROUND_WIDTH/2, posy: PLAYGROUND_HEIGHT/2, width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT});
 	$("#background").addSprite("background1",{width:PLAYGROUND_WIDTH,height:PLAYGROUND_HEIGHT,animation:backgroundanimation});
-	$("#players").addSprite("player",{width: 100, height: 26,animation:playerAnimation["idle"],posx:playerx, posy:playery});
+	$("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["idle"],posx:playerx, posy:playery});
 	
     $("#start").click(function () {
             $.playground().startGame(function () {
@@ -38,28 +41,28 @@ $(document).keydown(function(e){
 				//$("#player").setAnimation(playerAnimation["left"]);
                 //$("#player").x(-10,true);
                 $("#player").remove();
-				$("#players").addSprite("player",{width: 100, height: 26,animation:playerAnimation["left"],posx:playerx-10,posy:playery});
+				$("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["left"],posx:playerx-10,posy:playery});
 				playerx-=10;
                 break;
             case 38: //this is up! (up arrow)
 					//$("#player").setAnimation(playerAnimation["up"]);
 					//$("#player").y(10,true);
                     $("#player").remove();
-					$("#players").addSprite("player",{width: 100, height: 26,animation:playerAnimation["up"],posx:playerx,posy:playery-10});
+					$("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["up"],posx:playerx,posy:playery-10});
 					playery-=10;
                     break;
                 case 39: //this is right (right arrow)
 					//$("#player").setAnimation(playerAnimation["right"]);
 					//$("#player").x(10,true);
                     $("#player").remove();
-                    $("#players").addSprite("player",{width: 100, height: 26,animation:playerAnimation["right"],posx:playerx+10,posy:playery});
+                    $("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["right"],posx:playerx+10,posy:playery});
 					playerx+=10;
                     break;
                 case 40: //this is down! (down arrow)
 					//$("#player").setAnimation(playerAnimation["down"]);
 					//$("#player").x(-10,true);
                     $("#player").remove();
-                    $("#players").addSprite("player",{width: 100, height: 26,animation:playerAnimation["down"],posx:playerx,posy:playery+10});
+                    $("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["down"],posx:playerx,posy:playery+10});
 					playery+=10;
                     break;
     /*        if(e.keyCode== "w"){
