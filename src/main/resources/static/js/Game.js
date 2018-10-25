@@ -13,10 +13,14 @@ $(function(){
 		
     var backgroundanimation = new $.gQ.Animation({imageURL:"./Images/Background/background.jpg"});
 		playerAnimation["idle"] = new $.gameQuery.Animation({imageURL: "Images/character1/idle.png"});
-        playerAnimation["up"] = new $.gameQuery.Animation({imageURL: "Images/character1/rotarcrash/0.png"});
-        playerAnimation["down"] = new $.gameQuery.Animation({imageURL: "Images/character1/rotarcrash/0.png"});
+        playerAnimation["up"] = new $.gameQuery.Animation({imageURL: "Images/character1/giro.png",numberOfFrame: 9,
+           delta: 21, rate: 120,offsetx:14, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gQ.ANIMATION_ONCE});
+		playerAnimation["down"] = new $.gameQuery.Animation({imageURL: "Images/character1/giro.png",numberOfFrame: 9,
+           delta: 21, rate: 120,offsetx:14, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gQ.ANIMATION_ONCE});   
+       
         playerAnimation["left"] = new $.gameQuery.Animation({imageURL: "Images/character1/leftcrash/13.png"});
-        playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "Images/character1/rightcrash/12.png"});
+        playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "Images/character1/GiroPlayer1.png",numberOfFrame: 8,
+           delta: 28,offsetx:0, rate: 90, type: $.gameQuery.ANIMATION_HORIZONTAL| $.gQ.ANIMATION_ONCE});
 		playerAnimation["bombas"] = new $.gameQuery.Animation({imageURL: "Images/bomb1.png"});
 	
 	
@@ -32,6 +36,20 @@ $(function(){
                 $("#start").remove();
             })
     });
+});
+var delay = (function(){
+  var timer = 0;
+  return function(callback, ms){
+    clearTimeout (timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
+$(document).on('keyup', function(e) {
+	delay(function(){
+      $("#player").remove();
+	  $("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["idle"],posx:playerx, posy:playery});
+    }, 400 );
+    
 });
 $(document).keydown(function(e){
             switch(e.keyCode){
@@ -50,18 +68,18 @@ $(document).keydown(function(e){
             case 38: // (up arrow)
 
                     $("#player").remove();
-					$("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["up"],posx:playerx,posy:playery-10});
+					$("#players").addSprite("player",{width: playerWidth/3, height: playerheight-5,animation:playerAnimation["up"],posx:playerx,posy:playery-10});
 					playery-=10;
                     break;
                 case 39: //this is right (right arrow)
                     $("#player").remove();
-                    $("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["right"],posx:playerx+10,posy:playery});
-					playerx+=10;
+                    $("#players").addSprite("player",{width: playerWidth/4, height: playerheight,animation:playerAnimation["right"],posx:playerx+10,posy:playery});
+					playerx+=30;
                     break;
                 case 40: //this is down! (down arrow)
 
                     $("#player").remove();
-                    $("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["down"],posx:playerx,posy:playery+10});
+                    $("#players").addSprite("player",{width: playerWidth/3, height: playerheight,animation:playerAnimation["down"],posx:playerx,posy:playery+10});
 					playery+=10;
                     break;
     
