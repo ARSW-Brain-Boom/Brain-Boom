@@ -51,30 +51,28 @@
         <!--BUTTON SELECT-->
         <button type="button" class="btn btn-success" style='position: absolute; top: 430px; left: 520px;width: 290px; height: 50px'>Select Map</button>
         <img src="Images/select.png" style='position: absolute; top: 445px; left: 770px; width: 30px; height: 30px'/>
+      <!--LIST OF PLAYERS-->
+      <div id="players"></div>
+       <!--
+      <ul class="list-group" style='position: absolute; top: 400px; left: 50px;width: 290px; height: 10px'>
+        <li class="list-group-item text-center">Players in Room </li>        
+        <li class="list-group-item list-group-item-primary text-center">Player 1</li>
+        <li class="list-group-item list-group-item-secondary text-center">Player 2</li>
+        <li class="list-group-item list-group-item-success text-center">Player 3</li>
+        <li class="list-group-item list-group-item-danger text-center">Player 4</li>
+      </ul>  -->
+      <body onload="getPlayers()">
+      <!--START BUTTON-->
+      <button type="button" class="btn btn-danger" style='position: absolute; top: 510px; left: 470px;width: 400px; height: 100px'><h1>START!</h1></button>
+      <img src="Images/Start1.png" style='position: absolute; top: 515px; left: 760px; width: 80px; height: 80px'/>
+      <img src="Images/Start1.png" style='position: absolute; top: 515px; left: 500px; width: 80px; height: 80px'/>
 
-        <!--LIST OF PLAYERS-->
-        <ul class="list-group" style='position: absolute; top: 400px; left: 50px;width: 290px; height: 10px'>
-            <li class="list-group-item text-center">Players in Room </li>        
-            <li class="list-group-item list-group-item-primary text-center">Player 1</li>
-            <li class="list-group-item list-group-item-secondary text-center">Player 2</li>
-            <li class="list-group-item list-group-item-success text-center">Player 3</li>
-            <li class="list-group-item list-group-item-danger text-center">Player 4</li>
-        </ul>  
-
-        <!--START BUTTON-->
-        <form action="game.html" method="get">
-            <button id="start" type="submit" class="btn btn-danger" style='position: absolute; top: 510px; left: 470px;width: 400px; height: 100px'><h1>START!</h1></button>
-            <img src="Images/Start1.png" style='position: absolute; top: 515px; left: 760px; width: 80px; height: 80px'/>
-            <img src="Images/Start1.png" style='position: absolute; top: 515px; left: 500px; width: 80px; height: 80px'/>
-        </form>
-
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script language="JavaScript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-        <script language="JavaScript" type="text/javascript" src="js/jquery.gamequery.js"></script>
-        <script language="JavaScript" type="text/javascript" src="js/Game.js"></script>
-    </body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="js/firstController.js" type="text/javascript"></script>
+    <script src="js/selectRoomController.js" type="text/javascript"></script>
+  </body>
 </html>
