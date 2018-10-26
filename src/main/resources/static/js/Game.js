@@ -22,14 +22,18 @@ $(function(){
         playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "Images/character1/GiroPlayer1.png",numberOfFrame: 5,
            delta: 28,offsetx:1, rate: 90, type: $.gameQuery.ANIMATION_HORIZONTAL| $.gQ.ANIMATION_ONCE});
 		playerAnimation["bombas"] = new $.gameQuery.Animation({imageURL: "Images/bomb1.png"});
+		playerAnimation["solidos"] = new $.gameQuery.Animation({imageURL: "Images/Tiled/objCol.png"});
 
 
 	$("#playground").playground({height: PLAYGROUND_HEIGHT, width: PLAYGROUND_WIDTH})
-        .addGroup("background",{width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT}).end()
+        .addGroup("background", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT}).end()
         .addGroup("players", {posx: 0, posy: 0, width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT}).end()
-		.addGroup("bombas",{width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT});
+		.addGroup("bombas", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT}).end()
+		.addGroup("solidos", {width: PLAYGROUND_WIDTH/2, height:PLAYGROUND_HEIGHT/2});
 	$("#background").addSprite("background1",{width:PLAYGROUND_WIDTH,height:PLAYGROUND_HEIGHT,animation:backgroundanimation});
+	$("#solidos").addSprite("solidos1",{width: playerWidth, height: playerheight, animation:playerAnimation["solidos"], posx:50, posy:50}); 
 	$("#players").addSprite("player",{width: playerWidth, height: playerheight, animation:playerAnimation["idle"],posx:playerx, posy:playery});
+
 
     $("#start").click(function () {
             $.playground().startGame(function () {
@@ -37,6 +41,7 @@ $(function(){
             })
     });
 });
+
 var delay = (function(){
   var timer = 0;
   return function(callback, ms){
@@ -44,6 +49,7 @@ var delay = (function(){
     timer = setTimeout(callback, ms);
   };
 })();
+
 $(document).on('keyup', function(e) {
 	delay(function(){
       $("#player").remove();
@@ -51,6 +57,7 @@ $(document).on('keyup', function(e) {
     }, 400 );
 
 });
+
 $(document).keydown(function(e){
             switch(e.keyCode){
             case 32: //this is bomb (space)
