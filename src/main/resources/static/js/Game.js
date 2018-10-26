@@ -19,8 +19,8 @@ $(function(){
            delta: 21, rate: 120,offsetx:14, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gQ.ANIMATION_ONCE});
 
         playerAnimation["left"] = new $.gameQuery.Animation({imageURL: "Images/character1/leftcrash/13.png"});
-        playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "Images/character1/GiroPlayer1.png",numberOfFrame: 8,
-           delta: 28,offsetx:0, rate: 90, type: $.gameQuery.ANIMATION_HORIZONTAL| $.gQ.ANIMATION_ONCE});
+        playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "Images/character1/GiroPlayer1.png",numberOfFrame: 5,
+           delta: 28,offsetx:1, rate: 90, type: $.gameQuery.ANIMATION_HORIZONTAL| $.gQ.ANIMATION_ONCE});
 		playerAnimation["bombas"] = new $.gameQuery.Animation({imageURL: "Images/bomb1.png"});
 
 
