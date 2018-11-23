@@ -1,92 +1,140 @@
 
-var PLAYGROUND_HEIGHT= 500;
-var PLAYGROUND_WIDTH = 700;
-var playerAnimation= new Array();
-var playerx=0;
-var playery=0;
-var playerWidth=120;
-var playerheight=46;
+var PLAYGROUND_HEIGHT = 480;
+var PLAYGROUND_WIDTH = 850;
+var playerAnimation = new Array();
+var bombas = new Array();
+var playerx = 15;
+var playery = 0;
+var playerWidth = 75;
+var playerheight = 50;
 
-$(function(){
+var game = (function () {
+
+    var updatePositionPlayer = function (e) {
+        switch (e) {
+            case 32: //this is bomb (space)
+                name = "bomb" + playerx.toString() + playery.toString();
+                $("#bombas").addSprite(name, {width: 25, height: 25, animation: bombas["black"], posx: playerx, posy: playery});
+                break;
+            case 37: // (left arrow)
+                $("#player").remove();
+                $("#players").addSprite("player", {width: playerWidth / 3, height: playerheight, animation: playerAnimation["left"], posx: playerx - 25, posy: playery});
+                playerx -= 25;
+                break;
+            case 38: // (up arrow)
+                $("#player").remove();
+                $("#players").addSprite("player", {width: playerWidth / 3, height: playerheight, animation: playerAnimation["up"], posx: playerx, posy: playery - 25});
+                playery -= 25;
+                break;
+            case 39: //this is right (right arrow)
+                $("#player").remove();
+                $("#players").addSprite("player", {width: playerWidth / 3, height: playerheight, animation: playerAnimation["right"], posx: playerx + 25, posy: playery});
+                playerx += 25;
+                break;
+            case 40: //this is down! (down arrow)
+                $("#player").remove();
+                $("#players").addSprite("player", {width: playerWidth / 3, height: playerheight, animation: playerAnimation["down"], posx: playerx, posy: playery + 25});
+                playery += 25;
+                break;
+
+        }
+    };
+
+    var updateStatePlayer = function (e) {
+        switch (e) {
+            case 37: //this is left! (left arrow)
+                $("#player").setAnimation(playerAnimation["idle_left"]);
+                break;
+            case 38: //this is up! (up arrow)
+                $("#player").setAnimation(playerAnimation["idle_up"]);
+                break;
+            case 39: //this is right (right arrow)
+                $("#player").setAnimation(playerAnimation["idle_right"]);
+                break;
+            case 40: //this is down! (down arrow)
+                $("#player").setAnimation(playerAnimation["idle_down"]);
+                break;
+        }
+    }
+
+    return {
+        updatePositionPlayer: updatePositionPlayer,
+        updateStatePlayer: updateStatePlayer
+    };
+})();
+
+$(function () {
+
+    //The background
+    var backgroundanimation = new $.gQ.Animation({imageURL: "./Images/maps/yellowMap.png"});
+
+    //Player animations
+    playerAnimation["idle_down"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/down/down_black.png"});
+    playerAnimation["idle_up"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/up/up_black.png"});
+    playerAnimation["idle_right"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/right/right_black.png"});
+    playerAnimation["idle_left"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/left/left_black.png"});
+
+    playerAnimation["up"] = new $.gameQuery.Animation({imageURL: "./Images/character/up/idle_up_black.png", numberOfFrame: 424,
+        delta: 26, rate: 200, distance: 26, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gQ.ANIMATION_ONCE});
+
+    playerAnimation["down"] = new $.gameQuery.Animation({imageURL: "./Images/character/down/idle_down_black.png", numberOfFrame: 424,
+        delta: 26, rate: 200, distance: 26, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gQ.ANIMATION_MULTI});
+
+    playerAnimation["left"] = new $.gameQuery.Animation({imageURL: "./Images/character/left/idle_left_black.png", numberOfFrame: 1920,
+        delta: 30, rate: 150, distance: 26, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gQ.ANIMATION_MULTI});
+
+    playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "./Images/character/right/idle_right_black.png", numberOfFrame: 1920,
+        delta: 30, rate: 140, distance: 26, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gQ.ANIMATION_MULTI});
+
+    //Bombas
+    bombas["black"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/bomb_black.png", numberOfFrame: 800,
+        delta: 50, rate: 200, distance: 26, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gQ.ANIMATION_MULTI});
 
 
+    // Initialize the game:
+    $("#playground").playground({height: PLAYGROUND_HEIGHT, width: PLAYGROUND_WIDTH, keyTracker: true});
 
-    var backgroundanimation = new $.gQ.Animation({imageURL:"./Images/Background/background.jpg"});
-		playerAnimation["idle"] = new $.gameQuery.Animation({imageURL: "Images/character1/idle.png"});
-        playerAnimation["up"] = new $.gameQuery.Animation({imageURL: "Images/character1/giro.png",numberOfFrame: 9,
-           delta: 21, rate: 120,offsetx:14, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gQ.ANIMATION_ONCE});
-		playerAnimation["down"] = new $.gameQuery.Animation({imageURL: "Images/character1/giro.png",numberOfFrame: 9,
-           delta: 21, rate: 120,offsetx:14, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gQ.ANIMATION_ONCE});
-
-        playerAnimation["left"] = new $.gameQuery.Animation({imageURL: "Images/character1/leftcrash/13.png"});
-        playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "Images/character1/GiroPlayer1.png",numberOfFrame: 5,
-           delta: 28,offsetx:1, rate: 90, type: $.gameQuery.ANIMATION_HORIZONTAL| $.gQ.ANIMATION_ONCE});
-		playerAnimation["bombas"] = new $.gameQuery.Animation({imageURL: "Images/bomb1.png"});
-		playerAnimation["solidos"] = new $.gameQuery.Animation({imageURL: "Images/Tiled/objCol.png"});
-
-
-	$("#playground").playground({height: PLAYGROUND_HEIGHT, width: PLAYGROUND_WIDTH})
-        .addGroup("background", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT}).end()
-        .addGroup("players", {posx: 0, posy: 0, width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT}).end()
-		.addGroup("bombas", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT}).end()
-		.addGroup("solidos", {width: PLAYGROUND_WIDTH/2, height:PLAYGROUND_HEIGHT/2});
-	$("#background").addSprite("background1",{width:PLAYGROUND_WIDTH,height:PLAYGROUND_HEIGHT,animation:backgroundanimation});
-	$("#solidos").addSprite("solidos1",{width: playerWidth, height: playerheight, animation:playerAnimation["solidos"], posx:50, posy:50}); 
-	$("#players").addSprite("player",{width: playerWidth, height: playerheight, animation:playerAnimation["idle"],posx:playerx, posy:playery});
-
+    // Initialize the background
+    $.playground().addGroup("background", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
+            .addSprite("background1", {animation: backgroundanimation, width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
+            .end()
+            .addGroup("players", {posx: playerx, posy: playery, width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
+            .addSprite("player", {animation: playerAnimation["idle_down"], posx: playerx, posy: playery, width: playerWidth, height: playerheight})
+            .end()
+            .addGroup("bombas", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT});
 
     $("#start").click(function () {
-            $.playground().startGame(function () {
-                $("#start").remove();
-            })
+        $.playground().startGame(function () {
+            $("#start").fadeTo(1000, 0, function () {
+                $(this).remove();
+            });
+        })
     });
 });
 
-var delay = (function(){
-  var timer = 0;
-  return function(callback, ms){
-    clearTimeout (timer);
-    timer = setTimeout(callback, ms);
-  };
+
+var delay = (function () {
+    var timer = 0;
+    return function (callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
 })();
 
-$(document).on('keyup', function(e) {
-	delay(function(){
-      $("#player").remove();
-	  $("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["idle"], posx:playerx, posy:playery});
-    }, 400 );
-
+$(document).on('keyup', function (e) {
+    delay(function () {
+        //$("#player").remove();
+        //$("#players").addSprite("player", {width: playerWidth, height: playerheight, animation: playerAnimation["idle"], posx: playerx, posy: playery});
+        //$("#bombas").addSprite(name, {width: 25, height: 25, animation: bombas["black"], posx: playerx, posy: playery});
+    }, 400);
 });
 
-$(document).keydown(function(e){
-            switch(e.keyCode){
-            case 32: //this is bomb (space)
-				name="bomb"+playerx.toString()+playery.toString();
-				$("#bombas").addSprite(name,{width: playerWidth, height: playerheight, animation:playerAnimation["bombas"], posx:playerx, posy:playery});
-                break;
-            case 37: // (left arrow)
 
-                $("#player").remove();
-				$("#players").addSprite("player",{width: playerWidth, height: playerheight,animation:playerAnimation["left"],posx:playerx-10,posy:playery});
-				playerx-=10;
-                break;
-            case 38: // (up arrow)
+$(document).keydown(function (e) {
+    stomp.publishPosition(e.keyCode);
+});
 
-                    $("#player").remove();
-					$("#players").addSprite("player",{width: playerWidth/3, height: playerheight-5,animation:playerAnimation["up"],posx:playerx,posy:playery-10});
-					playery-=10;
-                    break;
-                case 39: //this is right (right arrow)
-                    $("#player").remove();
-                    $("#players").addSprite("player",{width: playerWidth/4, height: playerheight,animation:playerAnimation["right"],posx:playerx+10,posy:playery});
-					playerx+=30;
-                    break;
-                case 40: //this is down! (down arrow)
-
-                    $("#player").remove();
-                    $("#players").addSprite("player",{width: playerWidth/3, height: playerheight,animation:playerAnimation["down"],posx:playerx,posy:playery+10});
-					playery+=10;
-                    break;
-
-          }
+//this is where the keybinding occurs
+$(document).keyup(function (e) {
+    stomp.publishState(e.keyCode);
 });
