@@ -5,6 +5,8 @@ var PLAYGROUND_WIDTH = 675;
 var playerAnimation = new Array();
 var bombas = new Array();
 var blocks = new Array();
+var solidBlocks = new Array();
+var softBlocks = new Array();
 var playerx = 25;
 var playery = 25;
 var playerWidth = 25;
@@ -33,7 +35,7 @@ var game = (function () {
                 break;
             case 37: // (left arrow)
                 var nextPos = playerx - 25;
-                if (nextPos >= 25) {
+                if (nextPos >= 25 && !solidBlocks.includes(nextPos + "," + playery) && !softBlocks.includes(nextPos + "," + playery)) {
                     $("#player").remove();
                     $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["left"], posx: nextPos, posy: playery});
                     playerx = nextPos;
@@ -41,7 +43,7 @@ var game = (function () {
                 break;
             case 38: // (up arrow)
                 var nextPos = playery - 25;
-                if (nextPos >= 25) {
+                if (nextPos >= 25 && !solidBlocks.includes(playerx + "," + nextPos) && !softBlocks.includes(playerx + "," + nextPos)) {
                     $("#player").remove();
                     $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["up"], posx: playerx, posy: nextPos});
                     playery = nextPos;
@@ -49,7 +51,7 @@ var game = (function () {
                 break;
             case 39: //this is right (right arrow)
                 var nextPos = playerx + 25;
-                if (nextPos <= PLAYGROUND_WIDTH - 50) {
+                if (nextPos <= PLAYGROUND_WIDTH - 50 && !solidBlocks.includes(nextPos + "," + playery) && !softBlocks.includes(nextPos + "," + playery)) {
                     $("#player").remove();
                     $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["right"], posx: nextPos, posy: playery});
                     playerx = nextPos;
@@ -57,7 +59,7 @@ var game = (function () {
                 break;
             case 40: //this is down! (down arrow)
                 var nextPos = playery + 25;
-                if (nextPos <= PLAYGROUND_HEIGHT - 50) {
+                if (nextPos <= PLAYGROUND_HEIGHT - 50 && !solidBlocks.includes(playerx + "," + nextPos) && !softBlocks.includes(playerx + "," + nextPos)) {
                     $("#player").remove();
                     $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["down"], posx: playerx, posy: nextPos});
                     playery = nextPos;
@@ -223,9 +225,12 @@ function createBlocks() {
                     var name = "solidBlocks_" + j + "_" + i;
                     $("#solidBlocks").addSprite(name, {animation: blocks["solid"], posx: j, posy: i, width: 25, height: 25});
                     $("#" + name).addClass("SolidBlocks");
+                    solidBlocks.push(j + "," + i);
                 } else if (!blanks.includes(j + ", " + i) && randomNum == 0) { //En caso de que la coordenada no esté en la lista y el número es par, se pone el bloque
                     var name = "softBlocks_" + j + "_" + i;
                     $("#softBlocks").addSprite(name, {animation: blocks["soft"], posx: j, posy: i, width: 25, height: 25});
+                    $("#" + name).addClass("SoftBlocks");
+                    softBlocks.push(j + "," + i);
                 }
             } else { //Tomar el borde del tablero para poner los bloques solidos
                 var name = "solidBlocks_" + j + "_" + i;
