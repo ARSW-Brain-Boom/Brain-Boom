@@ -1,6 +1,6 @@
 
 //Variables globales
-var PLAYGROUND_HEIGHT = 457;
+var PLAYGROUND_HEIGHT = 475;
 var PLAYGROUND_WIDTH = 675;
 var playerAnimation = new Array();
 var bombas = new Array();
@@ -57,7 +57,7 @@ var game = (function () {
                 break;
             case 40: //this is down! (down arrow)
                 var nextPos = playery + 25;
-                if (nextPos <= PLAYGROUND_HEIGHT - 75) {
+                if (nextPos <= PLAYGROUND_HEIGHT - 50) {
                     $("#player").remove();
                     $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["down"], posx: playerx, posy: nextPos});
                     playery = nextPos;
@@ -162,7 +162,7 @@ $(function () {
             //$("#player").y(playery+25);
             if (collided.length > 0) {
                 collided.each(function () {
-                    console.log($("#player").y(), $(this).y());
+                    console.log($("#player").x(), $(this).y());
                 })
             }
 
@@ -209,7 +209,7 @@ function changeValue(b) {
  */
 function createBlocks() {
     //Lista que contiene las coordenadas de los espacios que hay que dejar sin bloques para garantizar que los jugadores no queden encerrados
-    var blanks = ["25, 25", "50, 25", "25, 50", "25, 350", "25, 375", "50, 375", "600, 25", "625, 25", "625, 50", "600, 375", "625, 375", "625, 350"];
+    var blanks = ["25, 25", "50, 25", "25, 50", "25, 400", "25, 425", "50, 425", "600, 25", "625, 25", "625, 50", "600, 425", "625, 425", "625, 400"];
     //Banderas
     var putRow = true;
     var putColumn = true;
@@ -217,7 +217,7 @@ function createBlocks() {
     for (var i = 0; i < PLAYGROUND_HEIGHT; i += 25) {
         for (var j = 0; j < PLAYGROUND_WIDTH; j += 25) {
             //Condición para tomar los espacios dentro del borde del tablero
-            if (i > 0 && i < PLAYGROUND_HEIGHT - 75 && j > 0 && j < PLAYGROUND_WIDTH - 25) {
+            if (i > 0 && i < PLAYGROUND_HEIGHT - 25 && j > 0 && j < PLAYGROUND_WIDTH - 25) {
                 var randomNum = Math.floor(Math.random() * 10) % 2; //Número random para determinar si se pone un bloque o no
                 if (putRow && putColumn && !blanks.includes(j + ", " + i)) { //Poner los bloques solidos, dejando una columna y fila de por medio
                     var name = "solidBlocks_" + j + "_" + i;

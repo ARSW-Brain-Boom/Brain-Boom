@@ -19,17 +19,17 @@
         </style>
     </head>
     <body>
-        <input type="hidden" name='<script type="js/firstController.js"> document.write(room);</script>'>
 
         <div class="container-fluid" align="center" style="position: relative; left: 500px;" >
             <div id="playground" >
-                <div id ="intro" >
-                    <!-- #Ingresar el número de sala -->
-                    <button id="start" style="background-color: white" onclick="stomp.connectSuscribe(1)">Start</button>
-                    <div id="loadbar" style="background: 000; height: 32px; overflow: visible;"><span id="loadtext" style="color: red"></span></div>
-                </div>
             </div>
         </div>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <div class="container-fluid" align="center" style="position: relative; left: 30px;">
+            <div id ="intro" >
+                <!-- #Ingresar el número de sala -->
+                <button id="start" style="background-color: white" onclick="stomp.connectSuscribe(1)">Start</button>
+                <div id="loadbar" style="background: 000; height: 0px; overflow: visible;"><span id="loadtext" style="color: red"></span></div>
+            </div>
+        </div>
     </body>
 </html>
