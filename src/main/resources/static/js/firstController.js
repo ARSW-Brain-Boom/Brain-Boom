@@ -9,6 +9,7 @@ function saveNick(){
   localStorage.setItem("room",room); 
   location.href='selectMap.html'  
   //
+
 }
 
 function main(){
