@@ -171,6 +171,16 @@ $(function () {
 
 });
 
+function print() {
+    //$("#gQ_scenegraph").clone().appendTo("#test");
+    $("#test").append(playground);
+    /*var plg = document.getElementById("playground");
+     var plgc = plg.cloneNode(true);
+     document.getElementById("test").appendChild(plgc);
+     console.log("print");*/
+    //$("#test").html();
+}
+
 function boom(name) {
     alert("The bomb has exploded");
     $("#" + name).remove();
