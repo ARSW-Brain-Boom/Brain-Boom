@@ -3,14 +3,18 @@ var room=0;
 
 function saveNick(){
   nickName=document.getElementById('nick').value;
-  console.log(nickName);
   room+=1;  
-  //savePlayers(nickName);
-  location.href='selectMap.html'; 
-  conect();
+  savePlayers(nickName);
+  console.log(nickName);
+  localStorage.setItem("room",room); 
+  location.href='selectMap.html'  
+  //
 }
 
-function conect(){
-	console.log(room);
+function main(){
+	saveNick();
 }
 
+function goTo(){
+	location.href='selectMap.html'; 
+}
