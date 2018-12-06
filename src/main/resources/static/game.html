@@ -18,7 +18,7 @@
             }
         </style>
     </head>
-    <body>
+    <body onload="stomp.connectSuscribe(1)">
 
         <div class="container-fluid" align="center" style="position: relative; left: 500px;" >
             <div id="playground" >
@@ -27,7 +27,7 @@
         <div class="container-fluid" align="center" style="position: relative; left: 30px;">
             <div id ="intro" >
                 <!-- #Ingresar el número de sala -->
-                <button id="start" style="background-color: white" onclick="stomp.connectSuscribe(1)">Start</button>
+                <button id="start" style="background-color: white" onclick="">Start</button>
                 <div id="loadbar" style="background: 000; height: 0px; overflow: visible;"><span id="loadtext" style="color: red"></span></div>
             </div>
         </div>

@@ -11,6 +11,7 @@ var playerx = 25;
 var playery = 25;
 var playerWidth = 25;
 var playerHeight = 25;
+var plg = null;
 
 /**
  * Funciones que ofrece el juego usando el patrón módulo.
@@ -18,6 +19,14 @@ var playerHeight = 25;
  * @type 
  */
 var game = (function () {
+
+    var getMap = function () {
+        return createMap();
+    }
+    
+    var setMap = function (map) {
+        plg = map;
+    }
 
     /**
      * Ejecutar una animación según el botón que se oprima
@@ -94,7 +103,9 @@ var game = (function () {
 
     return {
         updatePositionPlayer: updatePositionPlayer,
-        updateStatePlayer: updateStatePlayer
+        updateStatePlayer: updateStatePlayer,
+        getMap: getMap,
+        setMap: setMap
     };
 })();
 
@@ -129,7 +140,6 @@ $(function () {
     blocks["solid"] = new $.gQ.Animation({imageURL: "./Images/blocks/solid_yellow.png"});
     blocks["soft"] = new $.gQ.Animation({imageURL: "./Images/blocks/soft_yellow.png"});
 
-
     // Initialize the game:
     $("#playground").playground({height: PLAYGROUND_HEIGHT, width: PLAYGROUND_WIDTH, keyTracker: true});
 
@@ -152,27 +162,30 @@ $(function () {
         $.playground().startGame(function () {
             $("#start").fadeTo(1000, 0, function () {
                 $(this).remove();
-
             });
-        })
+        });
     });
 
-    $.playground().registerCallback(function () {
-        $(".SolidBlocks").each(function () {
-            var collided = $(this).collision("#player,." + $.gQ.groupCssClass);
-            //console.log($("#player").y(), $(this).y());
-            //$("#player").y(playery+25);
-            if (collided.length > 0) {
-                collided.each(function () {
-                    console.log($("#player").x(), $(this).y());
-                })
-            }
-
-        });
-    }, 1000);
+//    $.playground().registerCallback(function () {
+//        $(".SolidBlocks").each(function () {
+//            var collided = $(this).collision("#player,." + $.gQ.groupCssClass);
+//            //console.log($("#player").y(), $(this).y());
+//            //$("#player").y(playery+25);
+//            if (collided.length > 0) {
+//                collided.each(function () {
+//                    console.log($("#player").x(), $(this).y());
+//                })
+//            }
+//
+//        });
+//    }, 1000);
 
 });
 
+/**
+ * 
+ * @returns {undefined}
+ */
 function print() {
     //$("#gQ_scenegraph").clone().appendTo("#test");
     $("#test").append(playground);
@@ -183,6 +196,11 @@ function print() {
     //$("#test").html();
 }
 
+/**
+ * 
+ * @param {type} name
+ * @returns {undefined}
+ */
 function boom(name) {
     alert("The bomb has exploded");
     $("#" + name).remove();

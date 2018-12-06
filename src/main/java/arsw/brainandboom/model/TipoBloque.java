@@ -9,7 +9,6 @@ package arsw.brainandboom.model;
  *
  * @author Brain&Boom Team
  */
-public interface Poder {
-
-    public void setPowerToPlayer(Jugador jugador);
+public enum TipoBloque {
+    SOLID, SOFT;
 }

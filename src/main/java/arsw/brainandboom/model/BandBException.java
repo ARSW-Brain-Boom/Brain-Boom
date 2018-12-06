@@ -9,7 +9,14 @@ package arsw.brainandboom.model;
  *
  * @author Brain&Boom Team
  */
-public interface Poder {
+public class BandBException extends Exception {
 
-    public void setPowerToPlayer(Jugador jugador);
+    public BandBException(String message) {
+        super(message);
+    }
+
+    public BandBException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

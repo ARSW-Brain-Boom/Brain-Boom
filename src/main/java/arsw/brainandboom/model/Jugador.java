@@ -13,10 +13,14 @@ public class Jugador {
 
     private String nickName;
     private int vida;
+    private int numBombas;
+    private Bomba bomba;
 
-    public Jugador(String nickName, int vida) {
+    public Jugador(String nickName, Bomba bomba) {
         this.nickName = nickName;
-        this.vida = vida;
+        this.vida = 100;
+        this.numBombas = 1;
+        this.bomba = bomba;
     }
 
     public String getNickName() {
@@ -33,6 +37,27 @@ public class Jugador {
 
     public void setVida(int vida) {
         this.vida = vida;
+    }
+
+    public int getNumBombas() {
+        return numBombas;
+    }
+
+    public void setNumBombas(int numBombas) {
+        this.numBombas = numBombas;
+    }
+
+    public Bomba getBomba() {
+        return bomba;
+    }
+
+    public void setBomba(Bomba bomba) {
+        this.bomba = bomba;
+    }
+
+    @Override
+    public String toString() {
+        return "Jugador{" + "nickName=" + nickName + ", vida=" + vida + ", numBombas=" + numBombas + ", bomba=" + bomba + '}';
     }
 
 }

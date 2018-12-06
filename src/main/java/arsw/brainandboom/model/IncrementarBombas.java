@@ -9,7 +9,12 @@ package arsw.brainandboom.model;
  *
  * @author Brain&Boom Team
  */
-public interface Poder {
-
-    public void setPowerToPlayer(Jugador jugador);
+public class IncrementarBombas implements Poder {
+    
+    @Override
+    public void setPowerToPlayer(Jugador jugador) {
+        int numBombasActual = jugador.getNumBombas();
+        jugador.setNumBombas(numBombasActual++);
+    }
+    
 }

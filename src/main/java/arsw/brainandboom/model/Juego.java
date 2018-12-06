@@ -3,25 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package arsw.brainandboom.service;
+package arsw.brainandboom.model;
 
-import arsw.brainandboom.model.Bloque;
-import arsw.brainandboom.model.Jugador;
-import arsw.brainandboom.model.BandBException;
 import java.util.ArrayList;
 
 /**
  *
  * @author Brain&Boom Team
  */
-public interface BrainAndBoomService {
-
-    /**
-     *
-     * @param idRoom
-     * @throws BandBException
-     */
-    public void createGame(Integer idRoom) throws BandBException;
+public interface Juego {
 
     /**
      *
@@ -41,7 +31,13 @@ public interface BrainAndBoomService {
      *
      * @return
      */
-    public int getIdRoom();
+    public Integer getIdRoom();
+
+    /**
+     *
+     * @param idRoom
+     */
+    public void setIdRoom(Integer idRoom);
 
     /**
      *
@@ -65,5 +61,12 @@ public interface BrainAndBoomService {
      *
      * @return
      */
-    public ArrayList<Bloque> getListaBloquesTablero();
+    public Tablero getTablero();
+
+    /**
+     *
+     * @param tablero
+     */
+    public void setTablero(Tablero tablero);
+
 }

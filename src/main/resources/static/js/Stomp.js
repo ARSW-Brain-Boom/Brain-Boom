@@ -2,6 +2,7 @@ var stomp = (function () {
 
     var stompClient = null;
     var room = null;
+    var map = null;
 
     var connectAndSubscribe = function () {
         console.info('Connecting to WS...');
@@ -24,11 +25,6 @@ var stomp = (function () {
 
     return {
 
-        init: function () {
-            //websocket connection
-            //connectAndSubscribe();
-        },
-
         publishPosition: function (e) {
             if (stompClient != null) {
                 stompClient.send("/app/newposition." + room, {}, e);
@@ -49,6 +45,7 @@ var stomp = (function () {
             if (!isNaN(parseInt(r))) {
                 room = r;
                 connectAndSubscribe();
+                //console.log(map);
             } else {
                 alert("Debe ingresar un número de sala válido");
             }
