@@ -41,11 +41,11 @@ var stomp = (function () {
             }
         },
 
-        connectSuscribe: function (r) {
-            if (!isNaN(parseInt(r))) {
-                room = r;
+        connectSuscribe: function (idRoom) {
+            if (!isNaN(parseInt(idRoom))) {
+                room = idRoom;
                 connectAndSubscribe();
-                //console.log(map);
+                axios.setRoom(idRoom);
             } else {
                 alert("Debe ingresar un número de sala válido");
             }

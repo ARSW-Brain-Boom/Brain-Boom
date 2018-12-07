@@ -23,7 +23,7 @@ var game = (function () {
     var getMap = function () {
         return createMap();
     }
-    
+
     var setMap = function (map) {
         plg = map;
     }
@@ -37,10 +37,12 @@ var game = (function () {
     var updatePositionPlayer = function (e) {
         switch (e) {
             case 32: //this is bomb (space)
-                name = "bomb" + playerx.toString() + playery.toString();
-                $("#bombas").addSprite(name, {animation: bombas["black"], posx: playerx, posy: playery + playerHeight - 25, width: 25, height: 25});
+                var name = "bomb" + playerx.toString() + playery.toString();
+                var playerPosx = playerx;
+                var playerPosy = playery;
+                $("#bombas").addSprite(name, {animation: bombas["black"], posx: playerPosx, posy: playerPosy, width: 25, height: 25});
                 $("#" + name).addClass("playerBombs");
-                setTimeout(boom, 1500, name);
+                setTimeout(boom, 1500, name, playerPosx, playerPosy);
                 break;
             case 37: // (left arrow)
                 var nextPos = playerx - 25;
@@ -115,26 +117,28 @@ $(function () {
     var backgroundanimation = new $.gQ.Animation({imageURL: "./Images/maps/yellowMapSimple.png"});
 
     //Player animations
-    playerAnimation["idle_down"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/down/down_black2.png"});
-    playerAnimation["idle_up"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/up/up_black2.png"});
-    playerAnimation["idle_right"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/right/right_black2.png"});
-    playerAnimation["idle_left"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/left/left_black2.png"});
+    playerAnimation["idle_down"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/down/down_black.png"});
+    playerAnimation["idle_up"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/up/up_black.png"});
+    playerAnimation["idle_right"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/right/right_black.png"});
+    playerAnimation["idle_left"] = new $.gameQuery.Animation({imageURL: "./Images/character/static/left/left_black.png"});
 
-    playerAnimation["up"] = new $.gameQuery.Animation({imageURL: "./Images/character/up/idle_up_black2.png", numberOfFrame: 4,
-        delta: 26, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_ONCE});
-
-    playerAnimation["down"] = new $.gameQuery.Animation({imageURL: "./Images/character/down/idle_down_black2.png", numberOfFrame: 4,
+    playerAnimation["up"] = new $.gameQuery.Animation({imageURL: "./Images/character/up/up_black_idle.png", numberOfFrame: 4,
         delta: 26, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
 
-    playerAnimation["left"] = new $.gameQuery.Animation({imageURL: "./Images/character/left/idle_left_black2.png", numberOfFrame: 8,
+    playerAnimation["down"] = new $.gameQuery.Animation({imageURL: "./Images/character/down/down_black_idle.png", numberOfFrame: 4,
+        delta: 26, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
+
+    playerAnimation["left"] = new $.gameQuery.Animation({imageURL: "./Images/character/left/left_black_idle.png", numberOfFrame: 8,
         delta: 30, rate: 150, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
 
-    playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "./Images/character/right/idle_right_black2.png", numberOfFrame: 8,
+    playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "./Images/character/right/right_black_idle.png", numberOfFrame: 8,
         delta: 30, rate: 140, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
 
     //Bombas
-    bombas["black"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/bomb_black.png", numberOfFrame: 4,
+    bombas["black"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/static/black_bomb.png", numberOfFrame: 4,
         delta: 25, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_PINGPONG});
+    bombas["blast"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/blast/black_blast.png", numberOfFrame: 5,
+        delta: 25, rate: 200, type: $.gameQuery.ANIMATION_VERTICAL | $.gameQuery.ANIMATION_ONCE});
 
     //Blocks
     blocks["solid"] = new $.gQ.Animation({imageURL: "./Images/blocks/solid_yellow.png"});
@@ -201,10 +205,14 @@ function print() {
  * @param {type} name
  * @returns {undefined}
  */
-function boom(name) {
-    alert("The bomb has exploded");
+function boom(name, x, y) {
+    var blastName = name + 1; // El uno se debe cambiar por la cantidad de bombas que puede poner un jugador
     $("#" + name).remove();
     $("#" + name).removeClass();
+    $("#bombas").addSprite(blastName, {animation: bombas["blast"], posx: x, posy: y, width: 25, height: 25});
+    setTimeout(function () {
+        $("#" + blastName).remove()
+    }, 900);
 }
 
 /**

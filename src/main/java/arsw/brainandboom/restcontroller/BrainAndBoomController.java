@@ -37,10 +37,11 @@ public class BrainAndBoomController {
     private BrainAndBoomService bnbs;
 
     @PostMapping
-    public ResponseEntity<?> setStrings(@RequestBody Integer idRoom) {
+    public ResponseEntity<?> setIdRoom(@RequestBody Integer idRoom) {
         try {
             //registrar contenido
             //curl -i -X POST -HContent-Type:application/json -HAccept:application/json http://localhost:8080/bnb -d '1'
+            System.out.println("Llegó: " + idRoom);
             bnbs.createGame(idRoom);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (BandBException ex) {
