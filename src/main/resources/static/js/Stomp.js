@@ -2,6 +2,7 @@ var stomp = (function () {
 
     var stompClient = null;
     var room = null;
+    var map = null;
 
     var connectAndSubscribe = function () {
         console.info('Connecting to WS...');
@@ -24,11 +25,6 @@ var stomp = (function () {
 
     return {
 
-        init: function () {
-            //websocket connection
-            //connectAndSubscribe();
-        },
-
         publishPosition: function (e) {
             if (stompClient != null) {
                 stompClient.send("/app/newposition." + room, {}, e);
@@ -45,9 +41,9 @@ var stomp = (function () {
             }
         },
 
-        connectSuscribe: function (r) {
-            if (!isNaN(parseInt(r))) {
-                room = r;
+        connectSuscribe: function (idRoom) {
+            if (!isNaN(parseInt(idRoom))) {
+                room = idRoom;
                 connectAndSubscribe();
             } else {
                 alert("Debe ingresar un número de sala válido");
@@ -58,10 +54,6 @@ var stomp = (function () {
             if (stompClient !== null) {
                 stompClient.disconnect();
                 stompClient = null;
-                document.getElementById("btnConnect").disabled = false;
-                document.getElementById("btnDisconnect").disabled = true;
-                can.getContext('2d').clearRect(0, 0, can.width, can.height);
-                can.removeEventListener("click", eventMouse);
             }
             //setConnected(false);
             console.log("Disconnected");
