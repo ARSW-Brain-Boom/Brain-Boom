@@ -20,14 +20,6 @@ var plg = null;
  */
 var game = (function () {
 
-    var getMap = function () {
-        return createMap();
-    }
-
-    var setMap = function (map) {
-        plg = map;
-    }
-
     /**
      * Ejecutar una animación según el botón que se oprima
      * 
@@ -38,11 +30,9 @@ var game = (function () {
         switch (e) {
             case 32: //this is bomb (space)
                 var name = "bomb" + playerx.toString() + playery.toString();
-                var playerPosx = playerx;
-                var playerPosy = playery;
-                $("#bombas").addSprite(name, {animation: bombas["black"], posx: playerPosx, posy: playerPosy, width: 25, height: 25});
+                $("#bombas").addSprite(name, {animation: bombas["black"], posx: playerx, posy: playery, width: 25, height: 25});
                 $("#" + name).addClass("playerBombs");
-                setTimeout(boom, 1500, name, playerPosx, playerPosy);
+                setTimeout(boom, 1500, name);
                 break;
             case 37: // (left arrow)
                 var nextPos = playerx - 25;
@@ -106,8 +96,6 @@ var game = (function () {
     return {
         updatePositionPlayer: updatePositionPlayer,
         updateStatePlayer: updateStatePlayer,
-        getMap: getMap,
-        setMap: setMap
     };
 })();
 
@@ -188,25 +176,13 @@ $(function () {
 
 /**
  * 
- * @returns {undefined}
- */
-function print() {
-    //$("#gQ_scenegraph").clone().appendTo("#test");
-    $("#test").append(playground);
-    /*var plg = document.getElementById("playground");
-     var plgc = plg.cloneNode(true);
-     document.getElementById("test").appendChild(plgc);
-     console.log("print");*/
-    //$("#test").html();
-}
-
-/**
- * 
  * @param {type} name
  * @returns {undefined}
  */
-function boom(name, x, y) {
+function boom(name) {
     var blastName = name + 1; // El uno se debe cambiar por la cantidad de bombas que puede poner un jugador
+    var x = $("#" + name).x();
+    var y = $("#" + name).y();
     $("#" + name).remove();
     $("#" + name).removeClass();
     $("#bombas").addSprite(blastName, {animation: bombas["blast"], posx: x, posy: y, width: 25, height: 25});
@@ -236,39 +212,44 @@ function changeValue(b) {
  * @returns {undefined}
  */
 function createBlocks() {
-    //Lista que contiene las coordenadas de los espacios que hay que dejar sin bloques para garantizar que los jugadores no queden encerrados
-    var blanks = ["25, 25", "50, 25", "25, 50", "25, 400", "25, 425", "50, 425", "600, 25", "625, 25", "625, 50", "600, 425", "625, 425", "625, 400"];
-    //Banderas
-    var putRow = true;
-    var putColumn = true;
-    //Recorrer el tablero para poner los bloques solidos y blandos
-    for (var i = 0; i < PLAYGROUND_HEIGHT; i += 25) {
-        for (var j = 0; j < PLAYGROUND_WIDTH; j += 25) {
-            //Condición para tomar los espacios dentro del borde del tablero
-            if (i > 0 && i < PLAYGROUND_HEIGHT - 25 && j > 0 && j < PLAYGROUND_WIDTH - 25) {
-                var randomNum = Math.floor(Math.random() * 10) % 2; //Número random para determinar si se pone un bloque o no
-                if (putRow && putColumn && !blanks.includes(j + ", " + i)) { //Poner los bloques solidos, dejando una columna y fila de por medio
-                    var name = "solidBlocks_" + j + "_" + i;
-                    $("#solidBlocks").addSprite(name, {animation: blocks["solid"], posx: j, posy: i, width: 25, height: 25});
-                    $("#" + name).addClass("SolidBlocks");
-                    solidBlocks.push(j + "," + i);
-                } else if (!blanks.includes(j + ", " + i) && randomNum == 0) { //En caso de que la coordenada no esté en la lista y el número es par, se pone el bloque
-                    var name = "softBlocks_" + j + "_" + i;
-                    $("#softBlocks").addSprite(name, {animation: blocks["soft"], posx: j, posy: i, width: 25, height: 25});
-                    $("#" + name).addClass("SoftBlocks");
-                    softBlocks.push(j + "," + i);
+
+    var callback = {
+
+        onSuccess: function (blockList) {
+            //Recorrer el tablero para poner los bloques solidos y blandos
+            for (var i in blockList) {
+                for (var j in blockList[i]) {
+                    switch (j) {
+                        case "x":
+                            var x = blockList[i][j];
+                            break;
+                        case "y":
+                            var y = blockList[i][j];
+                            break;
+                        case "tipo":
+                            if (blockList[i][j] == "SOLID") {
+                                var name = "solidBlocks_" + x + "_" + y;
+                                $("#solidBlocks").addSprite(name, {animation: blocks["solid"], posx: x, posy: y, width: 25, height: 25});
+                                $("#" + name).addClass("SolidBlocks");
+                                solidBlocks.push(x + "," + y);
+                            } else {
+                                var name = "softBlocks_" + x + "_" + y;
+                                $("#softBlocks").addSprite(name, {animation: blocks["soft"], posx: x, posy: y, width: 25, height: 25});
+                                $("#" + name).addClass("SoftBlocks");
+                                softBlocks.push(x + "," + y);
+                            }
+                            break;
+                    }
                 }
-            } else { //Tomar el borde del tablero para poner los bloques solidos
-                var name = "solidBlocks_" + j + "_" + i;
-                $("#solidBlocks").addSprite(name, {animation: blocks["solid"], posx: j, posy: i, width: 25, height: 25});
-                //$("#" + name).addClass("SolidBlocks");
             }
-            putColumn = changeValue(putColumn);
         }
-        putRow = changeValue(putRow);
     }
+    bnbController.getMap(callback);
 }
 
+/*
+ * 
+ */
 $(document).keydown(function (e) {
     switch (e.keyCode) {
         case 32: //this is bomb (space)

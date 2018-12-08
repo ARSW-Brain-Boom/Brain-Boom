@@ -36,13 +36,25 @@ public class BrainAndBoomController {
     @Autowired
     private BrainAndBoomService bnbs;
 
-    @PostMapping
+    @PostMapping("/room")
     public ResponseEntity<?> setIdRoom(@RequestBody Integer idRoom) {
         try {
             //registrar contenido
             //curl -i -X POST -HContent-Type:application/json -HAccept:application/json http://localhost:8080/bnb -d '1'
-            System.out.println("Llegó: " + idRoom);
             bnbs.createGame(idRoom);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (BandBException ex) {
+            Logger.getLogger(Exception.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @PostMapping("/player")
+    public ResponseEntity<?> addPlayer(@RequestBody String userName) {
+        try {
+            //registrar contenido
+            //curl -i -X POST -HContent-Type:application/json -HAccept:application/json http://localhost:8080/bnb/player -d 'bnbPlayer'
+            bnbs.addPlayer(userName);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (BandBException ex) {
             Logger.getLogger(Exception.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,7 +68,17 @@ public class BrainAndBoomController {
             return new ResponseEntity<>(bnbs.getListaBloquesTablero(), HttpStatus.ACCEPTED);
         } catch (Exception ex) {
             Logger.getLogger(Exception.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("Primero debe crear un juego." + ex, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Primero debe crear un juego.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/players")
+    public ResponseEntity<?> getListPlayers() {
+        try {
+            return new ResponseEntity<>(bnbs.getJugadores(), HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            Logger.getLogger(Exception.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Primero debe crear un juego y agregar los jugadores." + ex, HttpStatus.NOT_FOUND);
         }
     }
 

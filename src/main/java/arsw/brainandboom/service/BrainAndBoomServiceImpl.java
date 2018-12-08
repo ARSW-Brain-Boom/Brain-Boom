@@ -35,7 +35,7 @@ public class BrainAndBoomServiceImpl implements BrainAndBoomService {
 
     @Override
     public void addPlayer(String name) throws BandBException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        juego.addPlayer(name);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class BrainAndBoomServiceImpl implements BrainAndBoomService {
 
     @Override
     public ArrayList<Jugador> getJugadores() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return juego.getJugadores();
     }
 
     @Override

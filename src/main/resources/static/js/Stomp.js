@@ -45,7 +45,6 @@ var stomp = (function () {
             if (!isNaN(parseInt(idRoom))) {
                 room = idRoom;
                 connectAndSubscribe();
-                axios.setRoom(idRoom);
             } else {
                 alert("Debe ingresar un número de sala válido");
             }
@@ -55,10 +54,6 @@ var stomp = (function () {
             if (stompClient !== null) {
                 stompClient.disconnect();
                 stompClient = null;
-                document.getElementById("btnConnect").disabled = false;
-                document.getElementById("btnDisconnect").disabled = true;
-                can.getContext('2d').clearRect(0, 0, can.width, can.height);
-                can.removeEventListener("click", eventMouse);
             }
             //setConnected(false);
             console.log("Disconnected");

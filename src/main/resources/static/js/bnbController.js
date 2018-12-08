@@ -1,26 +1,24 @@
-var axios = (function () {
+var bnbController = (function () {
 
-    var getMap = function () {
-        axios.get('/bnb/blocklist')
-                .then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
+    var getMap = function (callback) {
+        axios.get('/bnb/blocklist').then(function (response) {
+            callback.onSuccess(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        })
     };
 
     var setRoom = function (id) {
-        axios.post('/user', id, {headers: {'Content-Type': 'application/json'}})
-                .then(function (response) {
-                    console.log(response);
-                })
+        axios.post('/bnb/room', id, {headers: {'Content-Type': 'application/json'}}).then(function (response) {
+            stomp.connectSuscribe(id);
+        }).catch(function (error) {
+            console.log(error);
+        });
     };
-    
+
     return {
         getMap: getMap,
         setRoom: setRoom
     };
-    
+
 })();
