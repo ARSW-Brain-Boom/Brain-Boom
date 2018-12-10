@@ -18,7 +18,8 @@ var stomp = (function () {
                 game.updatePositionPlayer(parseInt(eventoJ.e),eventoJ.color);
             });
             stompClient.subscribe('/topic/newstate.' + room, function (eventbody) {
-                game.updateStatePlayer(parseInt(eventbody.body));
+                var eventoJ=JSON.parse(eventbody.body);
+                game.updateStatePlayer(parseInt(eventoJ.e),eventoJ.color);
             });
         });
     };
@@ -34,9 +35,9 @@ var stomp = (function () {
             }
         },
 
-        publishState: function (e) {
+        publishState: function (ev,color) {
             if (stompClient != null) {
-                stompClient.send("/app/newstate." + room, {}, e);
+                stompClient.send("/app/newstate." + room, {}, JSON.stringify({e:ev,color:idPlayer}));
             } else {
                 alert("Al parecer no estás en una sala!");
             }

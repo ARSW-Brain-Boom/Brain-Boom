@@ -76,19 +76,19 @@ var game = (function () {
      * @param {type} e, número correspondiente de un botón en el teclado
      * @returns {undefined}
      */
-    var updateStatePlayer = function (e) {
+    var updateStatePlayer = function (e,color) {
         switch (e) {
             case 37: //this is left! (left arrow)
-                $("#player").setAnimation(playerAnimation["idle_left"]);
+                $("#player").setAnimation(playerAnimation["idle_left"+color]);
                 break;
             case 38: //this is up! (up arrow)
-                $("#player").setAnimation(playerAnimation["idle_up"]);
+                $("#player").setAnimation(playerAnimation["idle_up"+color]);
                 break;
             case 39: //this is right (right arrow)
-                $("#player").setAnimation(playerAnimation["idle_right"]);
+                $("#player").setAnimation(playerAnimation["idle_right"+color]);
                 break;
             case 40: //this is down! (down arrow)
-                $("#player").setAnimation(playerAnimation["idle_down"]);
+                $("#player").setAnimation(playerAnimation["idle_down"+color]);
                 break;
         }
     }
@@ -121,7 +121,7 @@ $(function () {
 
     playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "./Images/character/right/right_black_idle.png", numberOfFrame: 8,
         delta: 30, rate: 140, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});*/
-    playerSetup("purple");
+    playerSetup(idPlayer);
     //Bombas
     bombas["black"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/static/black_bomb.png", numberOfFrame: 4,
         delta: 25, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_PINGPONG});
@@ -144,7 +144,7 @@ $(function () {
             .addGroup("softBlocks", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
             .end()
             .addGroup("players", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
-            .addSprite("player", {animation: playerAnimation["idle_down"], posx: playerx, posy: playery, width: playerWidth, height: playerHeight})
+            .addSprite("player", {animation: playerAnimation["idle_down"+idPlayer], posx: playerx, posy: playery, width: playerWidth, height: playerHeight})
             .end()
             .addGroup("bombas", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT});
 
@@ -320,16 +320,16 @@ $(document).keydown(function (e) {
 $(document).keyup(function (e) {
     switch (e.keyCode) {
         case 37: //this is left! (left arrow)
-            stomp.publishState(e.keyCode);
+            stomp.publishState(e.keyCode,idPlayer);
             break;
         case 38: //this is up! (up arrow)
-            stomp.publishState(e.keyCode);
+            stomp.publishState(e.keyCode,idPlayer);
             break;
         case 39: //this is right (right arrow)
-            stomp.publishState(e.keyCode);
+            stomp.publishState(e.keyCode,idPlayer);
             break;
         case 40: //this is down! (down arrow)
-            stomp.publishState(e.keyCode);
+            stomp.publishState(e.keyCode,idPlayer);
             break;
     }
 });
