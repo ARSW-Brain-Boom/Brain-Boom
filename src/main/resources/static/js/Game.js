@@ -12,7 +12,7 @@ var playery = 25;
 var playerWidth = 25;
 var playerHeight = 25;
 var plg = null;
-var idPlayer="black";
+var idPlayer="purple";
 /**
  * Funciones que ofrece el juego usando el patrón módulo.
  * 
@@ -54,7 +54,7 @@ var game = (function () {
                 var nextPos = playerx + 25;
                 if (nextPos <= PLAYGROUND_WIDTH - 50 && !solidBlocks.includes(nextPos + "," + playery) && !softBlocks.includes(nextPos + "," + playery)) {
                     $("#player").remove();
-                    $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["right"+color], posx: nextPos, posy: playery});
+                    $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["right"+color], posx: nextPos, posy: playery });
                     playerx = nextPos;
                 }
                 break;
@@ -121,7 +121,7 @@ $(function () {
 
     playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "./Images/character/right/right_black_idle.png", numberOfFrame: 8,
         delta: 30, rate: 140, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});*/
-
+    playerSetup("purple");
     //Bombas
     bombas["black"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/static/black_bomb.png", numberOfFrame: 4,
         delta: 25, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_PINGPONG});

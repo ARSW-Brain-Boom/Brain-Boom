@@ -1,4 +1,5 @@
 var stomp = (function () {
+    //var idPlayer="purple";
 
     var stompClient = null;
     var room = null;
@@ -13,8 +14,8 @@ var stomp = (function () {
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/newposition.' + room, function (eventbody) {
-                game.updatePositionPlayer(parseInt(eventbody.body));
-                //game.updateStatePlayer(parseInt(eventbody.body));
+                var eventoJ=JSON.parse(eventbody.body);
+                game.updatePositionPlayer(parseInt(eventoJ.e),eventoJ.color);
             });
             stompClient.subscribe('/topic/newstate.' + room, function (eventbody) {
                 game.updateStatePlayer(parseInt(eventbody.body));
@@ -25,9 +26,9 @@ var stomp = (function () {
 
     return {
 
-        publishPosition: function (e) {
+        publishPosition: function (ev,color) {
             if (stompClient != null) {
-                stompClient.send("/app/newposition." + room, {}, e);
+                stompClient.send("/app/newposition." + room, {}, JSON.stringify({e:ev,color:idPlayer}));
             } else {
                 alert("Al parecer no estás en una sala!");
             }

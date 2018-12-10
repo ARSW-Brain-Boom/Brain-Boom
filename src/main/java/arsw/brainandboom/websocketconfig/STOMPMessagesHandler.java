@@ -29,9 +29,9 @@ public class STOMPMessagesHandler {
      * @throws Exception
      */
     @MessageMapping("/newposition.{numroom}")
-    public synchronized void handlePositionEvent(@DestinationVariable int numroom, int e) throws Exception {
+    public synchronized void handlePositionEvent(@DestinationVariable int numroom, String jsonValue) throws Exception {
         System.out.println("Nuevo movimiento recibido en el servidor! Sala número: " + numroom);
-        msgt.convertAndSend("/topic/newposition." + numroom, e);
+        msgt.convertAndSend("/topic/newposition." + numroom, jsonValue);
     }
 
     /**
