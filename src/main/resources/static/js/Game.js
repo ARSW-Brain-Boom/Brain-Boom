@@ -1,7 +1,7 @@
 
 //Variables globales
-var PLAYGROUND_HEIGHT = 475;
-var PLAYGROUND_WIDTH = 675;
+var PLAYGROUND_HEIGHT = 600;
+var PLAYGROUND_WIDTH = 800;
 var playerAnimation = new Array();
 var bombas = new Array();
 var blocks = new Array();
@@ -12,7 +12,7 @@ var playery = 25;
 var playerWidth = 25;
 var playerHeight = 25;
 var plg = null;
-var idPlayer="purple";
+var idPlayer="white";
 /**
  * Funciones que ofrece el juego usando el patrón módulo.
  * 
