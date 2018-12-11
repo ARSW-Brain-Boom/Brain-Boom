@@ -73,13 +73,23 @@ public class BrainAndBoomController {
         }
     }
 
+    @GetMapping("/player/{userNamer}")
+    public ResponseEntity<?> getPlayer(@PathVariable("userNamer") String userName) {
+        try {
+            return new ResponseEntity<>(bnbs.getJugadores(), HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            Logger.getLogger(Exception.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("El usuario: " + userName + " no existe o fue eliminado.", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/players")
     public ResponseEntity<?> getListPlayers() {
         try {
             return new ResponseEntity<>(bnbs.getJugadores(), HttpStatus.ACCEPTED);
         } catch (Exception ex) {
             Logger.getLogger(Exception.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("Primero debe crear un juego y agregar los jugadores." + ex, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Primero debe crear un juego y agregar los jugadores.", HttpStatus.NOT_FOUND);
         }
     }
 

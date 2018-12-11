@@ -9,6 +9,7 @@ import arsw.brainandboom.model.Bloque;
 import arsw.brainandboom.model.Jugador;
 import arsw.brainandboom.model.BandBException;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -57,9 +58,16 @@ public interface BrainAndBoomService {
 
     /**
      *
+     * @param userName
      * @return
      */
-    public ArrayList<Jugador> getJugadores();
+    public Jugador getJugador(String userName);
+
+    /**
+     *
+     * @return
+     */
+    public Map<String, Jugador> getJugadores();
 
     /**
      *

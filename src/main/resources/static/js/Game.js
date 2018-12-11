@@ -127,6 +127,10 @@ $(function () {
         delta: 25, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_PINGPONG});
     bombas["blast"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/blast/black_blast.png", numberOfFrame: 5,
         delta: 25, rate: 200, type: $.gameQuery.ANIMATION_VERTICAL | $.gameQuery.ANIMATION_ONCE});
+    bombas["blast_up"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/up/up_black_blast.png"});
+    bombas["blast_down"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/down/down_black_blast.png"});
+    bombas["blast_right"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/right/right_black_blast.png"});
+    bombas["blast_left"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/left/left_black_blast.png"});
 
     //Blocks
     blocks["solid"] = new $.gQ.Animation({imageURL: "./Images/blocks/solid_yellow.png"});
@@ -187,6 +191,7 @@ function boom(name) {
     $("#" + name).remove();
     $("#" + name).removeClass();
     $("#bombas").addSprite(blastName, {animation: bombas["blast"], posx: x, posy: y, width: 25, height: 25});
+
     setTimeout(function () {
         $("#" + blastName).remove()
     }, 900);
@@ -216,21 +221,6 @@ function playerSetup(color) {
     playerAnimation["right"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/right/right_"+color+"_idle.png", numberOfFrame: 8,
         delta: 30, rate: 140, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
 
-}
-
-/**
- * Cambiar el valor de una variable booleana
- * 
- * @param {type} b
- * @returns {Boolean}
- */
-function changeValue(b) {
-    if (b) {
-        b = false;
-    } else {
-        b = true;
-    }
-    return b;
 }
 
 /**

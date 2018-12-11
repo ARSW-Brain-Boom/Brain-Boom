@@ -5,7 +5,7 @@
  */
 package arsw.brainandboom.model;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -53,9 +53,16 @@ public interface Juego {
 
     /**
      *
+     * @param userName
      * @return
      */
-    public ArrayList<Jugador> getJugadores();
+    public Jugador getJugador(String userName);
+
+    /**
+     *
+     * @return
+     */
+    public Map<String, Jugador> getJugadores();
 
     /**
      *

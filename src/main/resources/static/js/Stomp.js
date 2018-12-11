@@ -3,7 +3,6 @@ var stomp = (function () {
 
     var stompClient = null;
     var room = null;
-    var map = null;
 
     var connectAndSubscribe = function () {
         console.info('Connecting to WS...');
