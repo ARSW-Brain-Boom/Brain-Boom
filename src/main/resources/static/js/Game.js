@@ -12,6 +12,7 @@ var playery = 25;
 var playerWidth = 25;
 var playerHeight = 25;
 var jugadoreslist = [];
+var jugadoresvivos = [];
 var plg = null;
 var idPlayer = localStorage.getItem('color');
 /**
@@ -170,8 +171,6 @@ $(function () {
                 $(this).remove();
             });
         });
-        var bar = document.getElementById('bar');
-        bar.innerHTML += '<div class="progress" style="position: relative; top: -350px; width: 150px; left:-500px"><div aria-valuemax="100" aria-valuemin="0" aria-valuenow="25" class="progress-bar-striped bg-success" role="progressbar" style="width: 25%;"></div></div>';
     });
 
 //    $.playground().registerCallback(function () {
@@ -201,7 +200,7 @@ function boom(name, color) {
     var y = $("#" + name).y();
     $("#" + name).remove();
     $("#" + name).removeClass();
-    $("#bombas").addSprite(blastName, {animation: bombas["blast"+color], posx: x, posy: y, width: 25, height: 25});
+    $("#bombas").addSprite(blastName, {animation: bombas["blast" + color], posx: x, posy: y, width: 25, height: 25});
     colisionBomba(x, y, color);
     setTimeout(function () {
         $("#" + blastName).remove();
@@ -213,10 +212,16 @@ function boom(name, color) {
  * @returns {void}
  */
 function playerSetup() {
+
+    var opciones = ["danger", "dark", "info", "success"];
     for (i = 0; i < jugadoreslist.length; i++) {
         var color = jugadoreslist[i].color;
         var playerxx = jugadoreslist[i].posx;
         var playeryy = jugadoreslist[i].posy;
+        jugadoresvivos.push(color);
+        var bar = document.getElementById('barravida');
+        bar.innerHTML += '<div class="progress" style="position: relative;  height: 25px; width: 150px; "><div aria-valuemax="100" aria-valuemin="0" aria-valuenow="' + jugadoreslist[i].vida + '" class="progress-bar-striped bg-' + opciones[i] + '" role="progressbar" style="width: ' + jugadoreslist[i].vida + '%;"></div></div>';
+
         //Player first pose
         //$("#players").;
         //Player animations
@@ -262,7 +267,7 @@ function colisionBomba(x, y, color) {
     posibilidades.forEach(function (word) {
         var nameWord = word.replace(",", "alfa");
         var blastColision = word.split(",");
-        $("#bombas").addSprite(nameWord, {animation: bombas["blast"+color], posx: blastColision[0], posy: blastColision[1], width: 25, height: 25});
+        $("#bombas").addSprite(nameWord, {animation: bombas["blast" + color], posx: blastColision[0], posy: blastColision[1], width: 25, height: 25});
         if (softBlocks.includes(word)) {
             //Mejorar blastX y blastY. No dejarlos estaticos.
             var index = softBlocks.indexOf(word);
@@ -272,10 +277,27 @@ function colisionBomba(x, y, color) {
             $("#" + name).remove();
             $("#" + name).removeClass();
         }
+        var bar = document.getElementById('barravida');
+        bar.innerHTML = "";
         for (i = 0; i < jugadoreslist.length; i++) {
+            var opciones = ["danger", "dark", "info", "success"];
             var calc = jugadoreslist[i].posx + "," + jugadoreslist[i].posy;
             if (calc.includes(word)) {
                 jugadoreslist[i].vida -= 25;
+            }
+            bar.innerHTML += '<div class="progress" style="position: relative;  height: 25px; width: 150px; "><div aria-valuemax="100" aria-valuemin="0" aria-valuenow="' + jugadoreslist[i].vida + '" class="progress-bar-striped bg-' + opciones[i] + '" role="progressbar" style="width: ' + jugadoreslist[i].vida + '%;"></div></div>';
+            if (jugadoreslist[i].vida <= 0) {
+
+                if (idPlayer == jugadoreslist[i].color) {
+                    idPlayer = "muerto";
+
+                }
+                $("#player" + jugadoreslist[i].color).remove();
+                jugadoresvivos.splice(i, 1);
+                jugadoreslist[i].vida = 1000;
+                if (jugadoresvivos.length == 1) {
+                    alert("gano el jugador " + jugadoresvivos[0].color);
+                }
             }
         }
         setTimeout(function () {
@@ -367,6 +389,7 @@ function obtenerDatosPersonajes() {
         onSuccess: function (List) {
             jugadoreslist = List;
             playerSetup();
+
 
         }
     }
