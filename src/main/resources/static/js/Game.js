@@ -11,8 +11,9 @@ var playerx = 25;
 var playery = 25;
 var playerWidth = 25;
 var playerHeight = 25;
+var jugadoreslist=[];
 var plg = null;
-var idPlayer="white";
+var idPlayer=localStorage.getItem('color');
 /**
  * Funciones que ofrece el juego usando el patrón módulo.
  * 
@@ -27,43 +28,44 @@ var game = (function () {
      * @returns {undefined}
      */
     var updatePositionPlayer = function (e,color) {
+        var indice=findPersonaje(color);
         switch (e) {
             case 32: //this is bomb (space)
-                var name = "bomb" + playerx.toString() + playery.toString();
-                $("#bombas").addSprite(name, {animation: bombas["black"], posx: playerx, posy: playery, width: 25, height: 25});
+                var name = "bomb" + jugadoreslist[indice].posx.toString() + jugadoreslist[indice].posy.toString();
+                $("#bombas").addSprite(name, {animation: bombas["black"], posx: jugadoreslist[indice].posx, posy: jugadoreslist[indice].posy, width: 25, height: 25});
                 $("#" + name).addClass("playerBombs");
                 setTimeout(boom, 1500, name);
                 break;
             case 37: // (left arrow)
-                var nextPos = playerx - 25;
-                if (nextPos >= 25 && !solidBlocks.includes(nextPos + "," + playery) && !softBlocks.includes(nextPos + "," + playery)) {
-                    $("#player").remove();
-                    $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["left"+color], posx: nextPos, posy: playery});
-                    playerx = nextPos;
+                var nextPos = jugadoreslist[indice].posx - 25;
+                if (nextPos >= 25 && !solidBlocks.includes(nextPos + "," + jugadoreslist[indice].posy) && !softBlocks.includes(nextPos + "," + jugadoreslist[indice].posy)) {
+                    $("#player"+color).remove();
+                    $("#players").addSprite("player"+color, {width: playerWidth, height: playerHeight, animation: playerAnimation["left"+color], posx: nextPos, posy: jugadoreslist[indice].posy});
+                    jugadoreslist[indice].posx = nextPos;
                 }
                 break;
             case 38: // (up arrow)
-                var nextPos = playery - 25;
-                if (nextPos >= 25 && !solidBlocks.includes(playerx + "," + nextPos) && !softBlocks.includes(playerx + "," + nextPos)) {
-                    $("#player").remove();
-                    $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["up"+color], posx: playerx, posy: nextPos});
-                    playery = nextPos;
+                var nextPos = jugadoreslist[indice].posy - 25;
+                if (nextPos >= 25 && !solidBlocks.includes(jugadoreslist[indice].posx + "," + nextPos) && !softBlocks.includes(jugadoreslist[indice].posx + "," + nextPos)) {
+                    $("#player"+color).remove();
+                    $("#players").addSprite("player"+color, {width: playerWidth, height: playerHeight, animation: playerAnimation["up"+color], posx: jugadoreslist[indice].posx, posy: nextPos});
+                    jugadoreslist[indice].posy = nextPos;
                 }
                 break;
             case 39: //this is right (right arrow)
-                var nextPos = playerx + 25;
-                if (nextPos <= PLAYGROUND_WIDTH - 50 && !solidBlocks.includes(nextPos + "," + playery) && !softBlocks.includes(nextPos + "," + playery)) {
-                    $("#player").remove();
-                    $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["right"+color], posx: nextPos, posy: playery });
-                    playerx = nextPos;
+                var nextPos = jugadoreslist[indice].posx + 25;
+                if (nextPos <= PLAYGROUND_WIDTH - 50 && !solidBlocks.includes(nextPos + "," + jugadoreslist[indice].posy) && !softBlocks.includes(nextPos + "," + jugadoreslist[indice].posy)) {
+                    $("#player"+color).remove();
+                    $("#players").addSprite("player"+color, {width: playerWidth, height: playerHeight, animation: playerAnimation["right"+color], posx: nextPos, posy: jugadoreslist[indice].posy });
+                    jugadoreslist[indice].posx = nextPos;
                 }
                 break;
             case 40: //this is down! (down arrow)
-                var nextPos = playery + 25;
-                if (nextPos <= PLAYGROUND_HEIGHT - 50 && !solidBlocks.includes(playerx + "," + nextPos) && !softBlocks.includes(playerx + "," + nextPos)) {
-                    $("#player").remove();
-                    $("#players").addSprite("player", {width: playerWidth, height: playerHeight, animation: playerAnimation["down"+color], posx: playerx, posy: nextPos});
-                    playery = nextPos;
+                var nextPos = jugadoreslist[indice].posy + 25;
+                if (nextPos <= PLAYGROUND_HEIGHT - 50 && !solidBlocks.includes(jugadoreslist[indice].posx + "," + nextPos) && !softBlocks.includes(jugadoreslist[indice].posx + "," + nextPos)) {
+                    $("#player"+color).remove();
+                    $("#players").addSprite("player"+color, {width: playerWidth, height: playerHeight, animation: playerAnimation["down"+color], posx: jugadoreslist[indice].posx, posy: nextPos});
+                    jugadoreslist[indice].posy = nextPos;
                 }
                 break;
 
@@ -79,16 +81,16 @@ var game = (function () {
     var updateStatePlayer = function (e,color) {
         switch (e) {
             case 37: //this is left! (left arrow)
-                $("#player").setAnimation(playerAnimation["idle_left"+color]);
+                $("#player"+color).setAnimation(playerAnimation["idle_left"+color]);
                 break;
             case 38: //this is up! (up arrow)
-                $("#player").setAnimation(playerAnimation["idle_up"+color]);
+                $("#player"+color).setAnimation(playerAnimation["idle_up"+color]);
                 break;
             case 39: //this is right (right arrow)
-                $("#player").setAnimation(playerAnimation["idle_right"+color]);
+                $("#player"+color).setAnimation(playerAnimation["idle_right"+color]);
                 break;
             case 40: //this is down! (down arrow)
-                $("#player").setAnimation(playerAnimation["idle_down"+color]);
+                $("#player"+color).setAnimation(playerAnimation["idle_down"+color]);
                 break;
         }
     }
@@ -100,7 +102,7 @@ var game = (function () {
 })();
 
 $(function () {
-
+    
     //The background
     var backgroundanimation = new $.gQ.Animation({imageURL: "./Images/maps/yellowMapSimple.png"});
     /*
@@ -121,13 +123,13 @@ $(function () {
 
     playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "./Images/character/right/right_black_idle.png", numberOfFrame: 8,
         delta: 30, rate: 140, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});*/
-    playerSetup(idPlayer);
+    
     //Bombas
     bombas["black"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/static/black_bomb.png", numberOfFrame: 4,
         delta: 25, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_PINGPONG});
     bombas["blast"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/blast/black_blast.png", numberOfFrame: 5,
         delta: 25, rate: 200, type: $.gameQuery.ANIMATION_VERTICAL | $.gameQuery.ANIMATION_ONCE});
-
+    
     //Blocks
     blocks["solid"] = new $.gQ.Animation({imageURL: "./Images/blocks/solid_yellow.png"});
     blocks["soft"] = new $.gQ.Animation({imageURL: "./Images/blocks/soft_yellow.png"});
@@ -144,12 +146,11 @@ $(function () {
             .addGroup("softBlocks", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
             .end()
             .addGroup("players", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
-            .addSprite("player", {animation: playerAnimation["idle_down"+idPlayer], posx: playerx, posy: playery, width: playerWidth, height: playerHeight})
             .end()
             .addGroup("bombas", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT});
-
+    
     createBlocks();
-
+    obtenerDatosPersonajes();
     $("#start").click(function () {
         $.playground().startGame(function () {
             $("#start").fadeTo(1000, 0, function () {
@@ -196,28 +197,43 @@ function boom(name) {
  * @param nombre 
  * @returns {void}
  */
-function playerSetup(color) {
-    
-    //Player animations
-    playerAnimation["idle_down"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/static/down/down_"+color+".png"});
-    playerAnimation["idle_up"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/static/up/up_"+color+".png"});
-    playerAnimation["idle_right"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/static/right/right_"+color+".png"});
-    playerAnimation["idle_left"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/static/left/left_"+color+".png"});
+function playerSetup() {
+    for(i=0; i<jugadoreslist.length;i++){
+        var color=jugadoreslist[i].color;
+        var playerxx=jugadoreslist[i].posx; 
+        var playeryy=jugadoreslist[i].posy;         
+        //Player first pose
+        //$("#players").;
+        //Player animations
+        playerAnimation["idle_down"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/static/down/down_"+color+".png"});
+        playerAnimation["idle_up"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/static/up/up_"+color+".png"});
+        playerAnimation["idle_right"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/static/right/right_"+color+".png"});
+        playerAnimation["idle_left"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/static/left/left_"+color+".png"});
 
-    playerAnimation["up"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/up/up_"+color+"_idle.png", numberOfFrame: 4,
-        delta: 26, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
+        playerAnimation["up"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/up/up_"+color+"_idle.png", numberOfFrame: 4,
+            delta: 26, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
 
-    playerAnimation["down"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/down/down_"+color+"_idle.png", numberOfFrame: 4,
-        delta: 26, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
+        playerAnimation["down"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/down/down_"+color+"_idle.png", numberOfFrame: 4,
+            delta: 26, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
 
-    playerAnimation["left"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/left/left_"+color+"_idle.png", numberOfFrame: 8,
-        delta: 30, rate: 150, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
+        playerAnimation["left"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/left/left_"+color+"_idle.png", numberOfFrame: 8,
+            delta: 30, rate: 150, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
 
-    playerAnimation["right"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/right/right_"+color+"_idle.png", numberOfFrame: 8,
-        delta: 30, rate: 140, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
-
+        playerAnimation["right"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/right/right_"+color+"_idle.png", numberOfFrame: 8,
+            delta: 30, rate: 140, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
+        $("#background").addSprite("player"+color, {animation: playerAnimation["idle_down"+color], posx:playerxx, posy: playeryy, width: playerWidth, height: playerHeight});
+    }
 }
 
+/**
+ * Actualizar imagenes iniciales
+ * 
+ * @param {None} 
+ * @returns {None}
+ */
+//function imagenesIniciales() {
+      
+//}
 /**
  * Cambiar el valor de una variable booleana
  * 
@@ -231,6 +247,21 @@ function changeValue(b) {
         b = true;
     }
     return b;
+}
+/**
+ * Encontrar indice del personaje
+ * 
+ * @param {String} color
+ * @returns {Int}
+ */
+function findPersonaje(colorx) {
+    var indice=-1;
+    for(i=0; i<jugadoreslist.length;i++){
+            if(jugadoreslist[i].color==colorx){
+                  indice=i;
+            }				
+    }
+    return indice;
 }
 
 /**
@@ -272,6 +303,23 @@ function createBlocks() {
         }
     }
     bnbController.getMap(callback);
+}
+/**
+ * Guardar los datos de los diferentes jugadores 
+ * 
+ * @returns {Lista con todos los personajes}
+ */
+function obtenerDatosPersonajes() {
+
+    var callback = {
+
+        onSuccess: function (List) {
+            jugadoreslist=List;
+            playerSetup();
+
+        }
+    }
+    bnbController.getPlayers(callback);
 }
 
 /*
