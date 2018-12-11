@@ -123,13 +123,13 @@ $(function () {
 
     playerAnimation["right"] = new $.gameQuery.Animation({imageURL: "./Images/character/right/right_black_idle.png", numberOfFrame: 8,
         delta: 30, rate: 140, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});*/
-    obtenerDatosPersonajes();
+    
     //Bombas
     bombas["black"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/static/black_bomb.png", numberOfFrame: 4,
         delta: 25, rate: 200, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_PINGPONG});
     bombas["blast"] = new $.gameQuery.Animation({imageURL: "./Images/bomb/blast/black_blast.png", numberOfFrame: 5,
         delta: 25, rate: 200, type: $.gameQuery.ANIMATION_VERTICAL | $.gameQuery.ANIMATION_ONCE});
-
+    
     //Blocks
     blocks["solid"] = new $.gQ.Animation({imageURL: "./Images/blocks/solid_yellow.png"});
     blocks["soft"] = new $.gQ.Animation({imageURL: "./Images/blocks/soft_yellow.png"});
@@ -146,12 +146,11 @@ $(function () {
             .addGroup("softBlocks", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
             .end()
             .addGroup("players", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
-            .addSprite("player"+"red", {animation: playerAnimation["idle_down"+idPlayer], posx: 25, posy: 25, width: playerWidth, height: playerHeight})
             .end()
             .addGroup("bombas", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT});
-
+    
     createBlocks();
-
+    obtenerDatosPersonajes();
     $("#start").click(function () {
         $.playground().startGame(function () {
             $("#start").fadeTo(1000, 0, function () {
@@ -222,9 +221,19 @@ function playerSetup() {
 
         playerAnimation["right"+color] = new $.gameQuery.Animation({imageURL: "./Images/character/right/right_"+color+"_idle.png", numberOfFrame: 8,
             delta: 30, rate: 140, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_MULTI});
+        $("#background").addSprite("player"+color, {animation: playerAnimation["idle_down"+color], posx:playerxx, posy: playeryy, width: playerWidth, height: playerHeight});
     }
 }
 
+/**
+ * Actualizar imagenes iniciales
+ * 
+ * @param {None} 
+ * @returns {None}
+ */
+//function imagenesIniciales() {
+      
+//}
 /**
  * Cambiar el valor de una variable booleana
  * 
