@@ -18,7 +18,7 @@ public interface Juego {
      * @param name
      * @throws BandBException
      */
-    public void addPlayer(String name, String color) throws BandBException;
+    public void addPlayer(String name, String color, int posx, int posy) throws BandBException;
 
     /**
      *

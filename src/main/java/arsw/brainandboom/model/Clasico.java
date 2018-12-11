@@ -30,7 +30,7 @@ public class Clasico implements Juego {
     }
 
     @Override
-    public void addPlayer(String name, String color) throws BandBException {
+    public void addPlayer(String name, String color, int posx, int posy) throws BandBException {
         boolean existe = false;
         for (int i = 0; i < jugadores.size() && !existe; i++) {
             if (name.equals(jugadores.get(i).getNickName())) {
@@ -40,7 +40,7 @@ public class Clasico implements Juego {
         if (existe) {
             throw new BandBException("El usuario a agregar ya existe.");
         }
-        jugadores.add(new Jugador(name, new Bomba(10, 25),color));
+        jugadores.add(new Jugador(name, new Bomba(10, 25),color,posx,posy));
     }
 
     @Override

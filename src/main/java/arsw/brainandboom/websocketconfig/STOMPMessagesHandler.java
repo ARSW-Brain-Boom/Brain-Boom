@@ -46,5 +46,10 @@ public class STOMPMessagesHandler {
         System.out.println("Nuevo estado recibido en el servidor! Sala número: " + numroom +jsonValue);
         msgt.convertAndSend("/topic/newstate." + numroom, jsonValue);
     }
+    @MessageMapping("/newplayer.{numroom}")
+    public synchronized void handleNewPlayerEvent(@DestinationVariable int numroom, String jsonValue) throws Exception {
+        System.out.println("Nuevo jugador recibido en el servidor! Sala número: " + numroom +jsonValue);
+        msgt.convertAndSend("/topic/newplayer." + numroom, jsonValue);
+    }
 
 }

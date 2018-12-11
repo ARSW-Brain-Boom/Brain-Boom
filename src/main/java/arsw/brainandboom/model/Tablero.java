@@ -21,7 +21,7 @@ public class Tablero {
     private final int WIDTH = 800;
 
     //Lista que contiene las coordenadas de los espacios que hay que dejar sin bloques para garantizar que los jugadores no queden encerrados
-    private final List<String> BLANKS = Stream.of("25, 25", "50, 25", "25, 50", "25, 400", "25, 425", "50, 425", "600, 25", "625, 25", "625, 50", "600, 425", "625, 425", "625, 400").collect(Collectors.toList());
+    private final List<String> BLANKS = Stream.of("25, 25", "50, 25", "25, 50", "25, 525", "25, 550", "50, 550", "725, 25", "750, 25", "750, 50", "725, 550", "750, 550", "750, 525").collect(Collectors.toList());
 
     private ArrayList<Bloque> blocks;
 
