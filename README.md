@@ -7,7 +7,6 @@
 ---
 ## Integración contínua
 ### [Heroku](https://bandboom.herokuapp.com)
-### [Heroku2](https://brainandboom.herokuapp.com)
 ### [![CircleCI](https://circleci.com/gh/ARSW-Brain-Boom/Brain-Boom.svg?style=svg)](https://circleci.com/gh/ARSW-Brain-Boom/Brain-Boom)
 ### [![Codacy Badge](https://api.codacy.com/project/badge/Grade/138cff236c5e4d91abd576cf58c46835)](https://www.codacy.com/app/Jonnhi09/Brain-Boom?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ARSW-Brain-Boom/Brain-Boom&amp;utm_campaign=Badge_Grade)
 ## Documentación
