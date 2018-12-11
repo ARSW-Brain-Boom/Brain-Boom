@@ -8,6 +8,13 @@ function getPlayers(){
 	textHtml+=player;	
 	textHtml+="</li></ul>"
 	table.innerHTML+=textHtml;
+	getRoom();
+}
+
+function getRoom(){
+	room=localStorage.getItem('room');
+	var text=document.getElementById('room');
+	text.innerHTML+=room;
 }
 
 function savePlayers(nickName){
