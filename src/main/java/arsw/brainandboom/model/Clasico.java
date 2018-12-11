@@ -6,6 +6,8 @@
 package arsw.brainandboom.model;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,7 +30,7 @@ public class Clasico implements Juego {
     }
 
     @Override
-    public void addPlayer(String name) throws BandBException {
+    public void addPlayer(String name, String color) throws BandBException {
         boolean existe = false;
         for (int i = 0; i < jugadores.size() && !existe; i++) {
             if (name.equals(jugadores.get(i).getNickName())) {
@@ -38,7 +40,7 @@ public class Clasico implements Juego {
         if (existe) {
             throw new BandBException("El usuario a agregar ya existe.");
         }
-        jugadores.add(new Jugador(name, new Bomba(10, 25)));
+        jugadores.add(new Jugador(name, new Bomba(10, 25),color));
     }
 
     @Override
@@ -89,6 +91,24 @@ public class Clasico implements Juego {
     @Override
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
+    }
+
+    @Override
+    public Jugador getJugador(String color) {
+        Jugador jugadorActual = null;
+        for (int i = 0; i < jugadores.size();i++){
+            if(jugadores.get(i).getColor()==color){
+            jugadorActual = jugadores.get(i);
+        }
+            else{
+                try {
+                    throw new BandBException("El usuario con el color buscado no existe.");
+                } catch (BandBException ex) {
+                    Logger.getLogger(Clasico.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }        
+        }
+        return jugadorActual;
     }
 
 }
