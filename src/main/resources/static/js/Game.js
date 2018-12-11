@@ -257,8 +257,8 @@ function colisionBomba(x, y) {
           wordi=word.replace(",", "_");
           name="softBlocks_"+wordi;
           //alert(name);
-          $(name).removeClass();
-          $(name).remove();
+         // $("#"+name).removeClass();
+          $("#"+name).remove();
           
           
       }
@@ -266,7 +266,6 @@ function colisionBomba(x, y) {
           var calc=jugadoreslist[i].posx+","+jugadoreslist[i].posy;
           if(calc.includes(word) ){
               jugadoreslist[i].vida-=25;
-              alert("vida"+jugadoreslist[i].vida);
           }
       }
       
