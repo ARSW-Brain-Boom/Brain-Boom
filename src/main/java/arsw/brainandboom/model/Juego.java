@@ -18,7 +18,7 @@ public interface Juego {
      * @param name
      * @throws BandBException
      */
-    public void addPlayer(String name) throws BandBException;
+    public void addPlayer(String name, String color) throws BandBException;
 
     /**
      *
@@ -68,5 +68,7 @@ public interface Juego {
      * @param tablero
      */
     public void setTablero(Tablero tablero);
+    
+    public Jugador getJugador(String color);
 
 }
