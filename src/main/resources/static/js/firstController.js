@@ -4,17 +4,22 @@ var room=0;
 function newRoom(){
 	room+=1;  
 	localStorage.setItem("room",room); 
+	//stomp.connectSuscribe(localStorage.getItem('room'));
+	nickName=document.getElementById('nick').value; 
+  	localStorage.setItem("nickName",nickName); 
 	saveNick();
 }
 
 function joinRoom(){
 	var join=document.getElementById('join').value;
 	localStorage.setItem("room",join);   
+	nickName=document.getElementById('nick').value; 
+    localStorage.setItem("nickName",nickName); 
 	saveNick();
 }
 
-function saveNick(){
-  nickName=document.getElementById('nick').value; 
+function saveNick(){ 
+  nickName=document.getElementById('nick').value;   
   if(nickName==""){
   	alert("Por favor ingrese un Nickname");
   } else{

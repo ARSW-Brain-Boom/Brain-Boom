@@ -1,52 +1,61 @@
-<!doctype html>
+<!DOCTYPE doctype html>
 <html lang="es">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>B&B Game</title>
-  </head>  
-  <div class="container-fluid">
-    <body background="Images/Background2.jpg" style='position: relative;'>
-
-      <!--IMAGEN-->
-      <div class="container-fluid" style='position: relative; top: 10px;' align='center'>
-        <img src="Images/B&B.jpg" style='position: relative;'/>
-      </div>
-
-      <!--NICKNAME-->        
-      <div class="container-fluid" align="center" style='position: absolute; top: 510px'>      
-        <input type="nickname" class="form-control bg-warning text-white" id="nick" placeholder="Nickname" style='width: 300px'; align="center">
-        <img src="Images/bomb.png" align="center" style='position: relative; top: -35px;left: 130px'/>
-      </div>
-      
-      <!--BUTTONS-->
-      <div class="container-fluid" style='position: relative; top: 60px;' align='center'>
-        <div class"row">        
-          <button type="button" class="btn btn-primary mr-4 col field" style='position: relative; top: 0px; left: -90px; width: 105px; height: 60px' onclick="newRoom()">New Room</button>    
-          <div class="form-group">        
-            <input type="room" class="form-control bg-success text-white col field" id="join" placeholder="Room Id" style='position: relative; top:-50px; left: 150px; width: 130px';>
-             <img src="Images/room.png" style='position: relative; width: 30px; top: -85px; left: 195px; height: 30px'/>
-          </div>
-          <button type="button" class="btn btn-success col field" style='position: relative;top: -144px; left: 20px; width: 105px; height: 60px'  onclick="joinRoom()">Join Room</button>
-        </div>
-      </div>
-
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+            <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+                <!-- Bootstrap CSS -->
+                <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+                    <title>
+                        B&B; Game
+                    </title>
+                </link>
+            </meta>
+        </meta>
+    </head>
+    <div class="container-fluid">
+        <body background="Images/Background2.jpg" style="position: relative;">
+            <!--IMAGEN-->
+            <div align="center" class="container-fluid" style="position: relative; top: 10px;">
+                <img src="Images/B&B.jpg" style="position: relative;"/>
+            </div>
+            <!--NICKNAME-->
+            <div align="center" class="container-fluid" style="position: absolute; top: 510px">
+                <input ;="" align="center" class="form-control bg-warning text-white" id="nick" placeholder="Nickname" style="width: 300px" type="nickname">
+                    <img align="center" src="Images/bomb.png" style="position: relative; top: -35px;left: 130px"/>
+                </input>
+            </div>
+            <!--BUTTONS-->
+            <div align="center" class="container-fluid" style="position: relative; top: 60px;">
+                <div class"row"="">
+                    <button class="btn btn-primary mr-4 col field" onclick="newRoom()" style="position: relative; top: 0px; left: -90px; width: 105px; height: 60px" type="button">
+                        New Room
+                    </button>
+                    <div class="form-group">
+                        <input ;="" class="form-control bg-success text-white col field" id="join" placeholder="Room Id" style="position: relative; top:-50px; left: 150px; width: 130px" type="room">
+                            <img src="Images/room.png" style="position: relative; width: 30px; top: -85px; left: 195px; height: 30px"/>
+                        </input>
+                    </div>
+                    <button class="btn btn-success col field" onclick="joinRoom()" style="position: relative;top: -144px; left: 20px; width: 105px; height: 60px" type="button">
+                        Join Room
+                    </button>
+                </div>
+            </div>
+        </body>
     </div>
-
-
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src = "https://unpkg.com/axios/dist/axios.min.js " ></script>   
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="js/firstController.js" type="text/javascript"></script>
-    <script src="js/selectRoomController.js" type="text/javascript"></script>
-  </body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js ">
+    </script>
+    <script src="./js/Stomp.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+    </script>
+    <script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js">
+    </script>
+    <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
+    </script>
+    <script src="js/firstController.js" type="text/javascript">
+    </script>
+    <script src="js/selectRoomController.js" type="text/javascript">
+    </script>
 </html>
