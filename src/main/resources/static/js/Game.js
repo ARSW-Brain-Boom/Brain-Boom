@@ -158,9 +158,10 @@ $(function () {
             });
             $("#icons").fadeTo(300, 0, function () {
                 $(this).remove();                
-            });
-
+            });              
         });
+        var bar=document.getElementById('bar');
+        bar.innerHTML += '<div class="progress" style="position: relative; top: -350px; width: 150px; left:-500px"><div aria-valuemax="100" aria-valuemin="0" aria-valuenow="25" class="progress-bar-striped bg-success" role="progressbar" style="width: 25%;"></div></div>';        
     });
 
 //    $.playground().registerCallback(function () {

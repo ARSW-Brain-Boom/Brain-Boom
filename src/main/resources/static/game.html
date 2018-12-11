@@ -1,13 +1,19 @@
-<!doctype html>
+<!DOCTYPE doctype html>
 <html>
     <head>
-        <meta charset="utf-8" />
-        <title>Brain and Boom</title>
-        <script src="./js/jQuery1.7.1.js"></script>
-        <script src="./js/jquery.gamequery.js"></script>
+        <meta charset="utf-8"/>
+        <title>
+            Brain and Boom
+        </title>
+        <script src="./js/jQuery1.7.1.js">
+        </script>
+        <script src="./js/jquery.gamequery.js">
+        </script>
         <!--<script src="./webjars/jquery/jquery.min.js"></script>-->
-        <script src="./webjars/sockjs-client/sockjs.min.js"></script>
-        <script src="./webjars/stomp-websocket/stomp.min.js"></script>
+        <script src="./webjars/sockjs-client/sockjs.min.js">
+        </script>
+        <script src="./webjars/stomp-websocket/stomp.min.js">
+        </script>
         <style type="text/css">
             html,body{
                 margin: 0;
@@ -24,32 +30,48 @@
              left: 0;
              right: 0;">
         </div>
-
-        <div class="container-fluid" align="center" style="position: relative; top: 610px ">
-            <div id ="intro" >
+        <div align="center" class="container-fluid" style="position: relative; top: 610px ">
+            <div id="intro">
                 <!-- #Ingresar el número de sala -->
-                <button id="start" class="btn btn-danger" onclick="" style="position: relative;  width:300px; height: 70px"><H2>START!!</h2></button>                
-                <div id="loadbar" style="background: 000; height: 0px; overflow: visible;"><span id="loadtext" style="color: red"></span></div>
+                <button class="btn btn-danger" id="start" onclick="" style="position: relative;  width:300px; height: 70px">
+                    <h2>
+                        START!!
+                    </h2>
+                </button>
+                <div id="loadbar" style="background: 000; height: 0px; overflow: visible;">
+                    <span id="loadtext" style="color: red">
+                    </span>
+                </div>
             </div>
         </div>
+        <!-- BOTÓN START Y CONTROLES-->
+        <div align="center" class="container-fluid" id="icons" style="position: relative; top: 200px ">
+            <span class="badge badge-pill badge-warning" style="position: relative; top: -250px;width: 250px; height: 50px">
+                <h2>
+                    CONTROLES
+                </h2>
+            </span>
+            <div align="center" class="container-fluid" style="position: relative; top: -20px ">
+                <img id="icons" src="Images/flechas.png" style="position: relative; top: -155px; left: 250px; width: 250px; height: 250px"/>
+                <img id="icons" src="Images/espacio.png" style="position: relative; top: 55px; left: -130px; width: 500px; height: 100px"/>
+            </div>
+            <img src="Images/Start1.png" style="position: relative; top: 45px; left: -90px; width: 60px; height: 60px"/>
+            <img src="Images/Start1.png" style="position: relative; top: 45px; left: 85px; width: 60px; height: 60px"/>
+        </div>
+
+        <div align="center" class="container-fluid" id="bar" style="position: relative; top: 50px ">
                         
-        <!-- BOTÓN START -->
-        <div class="container-fluid" align="center" id="icons" style="position: relative; top: 200px ">
-            <span class="badge badge-pill badge-warning" style='position: relative; top: -250px;width: 250px; height: 50px'><h2>CONTROLES</h2></span>
-            <div class="container-fluid" align="center"  style="position: relative; top: -20px ">
-                <img src="Images/flechas.png" id="icons" style='position: relative; top: -155px; left: 250px; width: 250px; height: 250px'/> 
-                <img src="Images/espacio.png" id="icons" style='position: relative; top: 55px; left: -130px; width: 500px; height: 100px'/> 
-            </div>
-            <img src="Images/Start1.png" style='position: relative; top: 45px; left: -90px; width: 60px; height: 60px'/>            
-            <img src="Images/Start1.png" style='position: relative; top: 45px; left: 85px; width: 60px; height: 60px'/>
         </div>
-        
-       
-        
+
         <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
-        <script src="./js/bnbController.js"></script>
-        <script src="./js/Game.js"></script>
-        <script src="./js/Stomp.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+            <script src="./js/bnbController.js">
+            </script>
+            <script src="./js/Game.js">
+            </script>
+            <script src="./js/Stomp.js">
+            </script>
+            <script src="https://unpkg.com/axios/dist/axios.min.js">
+            </script>
+        </link>
     </body>
 </html>
