@@ -19,19 +19,34 @@
     </head>
     <body onload="stomp.connectSuscribe(1)">
         <div id="playground" style="position: absolute;
-margin-left: auto;
-margin-right: auto;
-left: 0;
-right: 0;">
-            </div>
+             margin-left: auto;
+             margin-right: auto;
+             left: 0;
+             right: 0;">
+        </div>
 
-        <div class="container-fluid" align="center" style="position: relative; ">
+        <div class="container-fluid" align="center" style="position: relative; top: 610px ">
             <div id ="intro" >
                 <!-- #Ingresar el número de sala -->
-                <button id="start" style="background-color: white" onclick="">Start</button>
+                <button id="start" class="btn btn-danger" onclick="" style="position: relative;  width:300px; height: 70px"><H2>START!!</h2></button>                
                 <div id="loadbar" style="background: 000; height: 0px; overflow: visible;"><span id="loadtext" style="color: red"></span></div>
             </div>
         </div>
+                        
+        <!-- BOTÓN START -->
+        <div class="container-fluid" align="center" id="icons" style="position: relative; top: 200px ">
+            <span class="badge badge-pill badge-warning" style='position: relative; top: -250px;width: 250px; height: 50px'><h2>CONTROLES</h2></span>
+            <div class="container-fluid" align="center"  style="position: relative; top: -20px ">
+                <img src="Images/flechas.png" id="icons" style='position: relative; top: -155px; left: 250px; width: 250px; height: 250px'/> 
+                <img src="Images/espacio.png" id="icons" style='position: relative; top: 55px; left: -130px; width: 500px; height: 100px'/> 
+            </div>
+            <img src="Images/Start1.png" style='position: relative; top: 45px; left: -90px; width: 60px; height: 60px'/>            
+            <img src="Images/Start1.png" style='position: relative; top: 45px; left: 85px; width: 60px; height: 60px'/>
+        </div>
+        
+       
+        
+        <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
         <script src="./js/bnbController.js"></script>
         <script src="./js/Game.js"></script>
         <script src="./js/Stomp.js"></script>
