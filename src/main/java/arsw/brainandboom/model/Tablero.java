@@ -17,8 +17,8 @@ import java.util.stream.Stream;
  */
 public class Tablero {
 
-    private final int HEIGHT = 475;
-    private final int WIDTH = 675;
+    private final int HEIGHT = 600;
+    private final int WIDTH = 800;
 
     //Lista que contiene las coordenadas de los espacios que hay que dejar sin bloques para garantizar que los jugadores no queden encerrados
     private final List<String> BLANKS = Stream.of("25, 25", "50, 25", "25, 50", "25, 400", "25, 425", "50, 425", "600, 25", "625, 25", "625, 50", "600, 425", "625, 425", "625, 400").collect(Collectors.toList());

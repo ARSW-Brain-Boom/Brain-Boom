@@ -54,6 +54,7 @@ public class BrainAndBoomController {
         try {
             //registrar contenido
             //curl -i -X POST -HContent-Type:application/json -HAccept:application/json http://localhost:8080/bnb/player -d 'bnbPlayer'
+            userName=userName.replace("=", "");
             bnbs.addPlayer(userName);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (BandBException ex) {

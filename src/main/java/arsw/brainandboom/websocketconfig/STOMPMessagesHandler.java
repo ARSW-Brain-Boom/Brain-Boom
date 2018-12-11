@@ -25,13 +25,13 @@ public class STOMPMessagesHandler {
      * Actualizar la posición de los personajes
      *
      * @param numroom
-     * @param e
+     * @param jsonValue
      * @throws Exception
      */
     @MessageMapping("/newposition.{numroom}")
-    public synchronized void handlePositionEvent(@DestinationVariable int numroom, int e) throws Exception {
-        System.out.println("Nuevo movimiento recibido en el servidor! Sala número: " + numroom);
-        msgt.convertAndSend("/topic/newposition." + numroom, e);
+    public synchronized void handlePositionEvent(@DestinationVariable int numroom, String jsonValue) throws Exception {
+        System.out.println("Nuevo movimiento recibido en el servidor! Sala número: " + numroom +jsonValue);
+        msgt.convertAndSend("/topic/newposition." + numroom, jsonValue);
     }
 
     /**
@@ -42,9 +42,9 @@ public class STOMPMessagesHandler {
      * @throws Exception
      */
     @MessageMapping("/newstate.{numroom}")
-    public synchronized void handleStateEvent(@DestinationVariable int numroom, int e) throws Exception {
-        System.out.println("Nuevo estado recibido en el servidor! Sala número: " + numroom);
-        msgt.convertAndSend("/topic/newstate." + numroom, e);
+    public synchronized void handleStateEvent(@DestinationVariable int numroom, String jsonValue) throws Exception {
+        System.out.println("Nuevo estado recibido en el servidor! Sala número: " + numroom +jsonValue);
+        msgt.convertAndSend("/topic/newstate." + numroom, jsonValue);
     }
 
 }
