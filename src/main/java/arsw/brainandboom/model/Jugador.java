@@ -15,16 +15,22 @@ public class Jugador {
     private int vida;
     private int numBombas;
     private Bomba bomba;
+    private String color;
 
-    public Jugador(String nickName, Bomba bomba) {
+    public Jugador(String nickName, Bomba bomba, String Color) {
         this.nickName = nickName;
         this.vida = 100;
         this.numBombas = 1;
         this.bomba = bomba;
+        this.color=Color;
     }
 
     public String getNickName() {
         return nickName;
+    }
+    
+    public String getColor() {
+        return color;
     }
 
     public void setNickName(String nickName) {
@@ -57,7 +63,7 @@ public class Jugador {
 
     @Override
     public String toString() {
-        return "Jugador{" + "nickName=" + nickName + ", vida=" + vida + ", numBombas=" + numBombas + ", bomba=" + bomba + '}';
+        return "Jugador{" + "nickName=" + nickName + ", vida=" + vida +  ", color=" + color+ ", numBombas=" + numBombas + ", bomba=" + bomba + '}';
     }
 
 }

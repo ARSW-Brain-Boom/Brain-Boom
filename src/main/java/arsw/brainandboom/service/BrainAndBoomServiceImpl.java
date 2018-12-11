@@ -24,6 +24,9 @@ public class BrainAndBoomServiceImpl implements BrainAndBoomService {
     @Autowired
     @Qualifier("clasico")
     private Juego juego;
+    
+    public int cont=0;
+    public String color;
 
     @Override
     public void createGame(Integer idRoom) throws BandBException {
@@ -35,7 +38,17 @@ public class BrainAndBoomServiceImpl implements BrainAndBoomService {
 
     @Override
     public void addPlayer(String name) throws BandBException {
-        juego.addPlayer(name);
+        if(cont==0){
+            color="red";
+        }else if(cont==1){
+            color="black";
+        }else if(cont==2){
+            color="white";
+        }else if(cont==3){
+            color="purple";
+        }
+        juego.addPlayer(name,color);
+        cont+=1;
     }
 
     @Override
