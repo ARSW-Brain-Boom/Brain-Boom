@@ -71,6 +71,16 @@ var game = (function () {
 
         }
     };
+    /**
+     * Ejecutar una animación después de que un botón se ha oprimido
+     * 
+     * @param {type} e, número correspondiente de un botón en el teclado
+     * @returns {undefined}
+     */
+    var updateObjectHealth = function (e,color) {
+        
+        
+    }
 
     /**
      * Ejecutar una animación después de que un botón se ha oprimido
@@ -192,6 +202,7 @@ function boom(name) {
     $("#" + name).remove();
     $("#" + name).removeClass();
     $("#bombas").addSprite(blastName, {animation: bombas["blast"], posx: x, posy: y, width: 25, height: 25});
+    colisionBomba(x, y);
     setTimeout(function () {
         $("#" + blastName).remove()
     }, 900);
@@ -230,14 +241,42 @@ function playerSetup() {
 }
 
 /**
- * Actualizar imagenes iniciales
+ * Verificar si hay algún objeto con el que colisione las bombas
  * 
- * @param {None} 
- * @returns {None}
+ * @param {x,y} Coordenadas de la bomba.
+ * @returns {Array,Array} jugadores, bloquesblandos
  */
-//function imagenesIniciales() {
+function colisionBomba(x, y) {
+    //alert(x);
+    //alert(y);
+    var xder=x+25;
+    var xiz=x-25;
+    var yab=y+25;
+    var yar=y-25;
+    var posibilidades = [(xder + "," + y),(xiz + "," + y),(x + "," + yar),(x + "," + yab),(x + "," + y) ];
+    posibilidades.forEach(function(word){
+      if(softBlocks.includes(word)){
+          var index=softBlocks.indexOf(word);
+          softBlocks.splice(index,index+1);
+          wordi=word.replace(",", "_");
+          name="softBlocks_"+wordi;
+          //alert(name);
+         // $("#"+name).removeClass();
+          $("#"+name).remove();
+          
+          
+      }
+      for(i=0; i<jugadoreslist.length;i++){
+          var calc=jugadoreslist[i].posx+","+jugadoreslist[i].posy;
+          if(calc.includes(word) ){
+              jugadoreslist[i].vida-=25;
+          }
+      }
       
-//}
+    });
+    
+}
+
 /**
  * Cambiar el valor de una variable booleana
  * 
@@ -308,6 +347,7 @@ function createBlocks() {
     }
     bnbController.getMap(callback);
 }
+
 /**
  * Guardar los datos de los diferentes jugadores 
  * 
