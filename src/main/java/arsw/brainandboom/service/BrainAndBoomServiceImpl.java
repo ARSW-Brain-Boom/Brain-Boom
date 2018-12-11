@@ -38,16 +38,24 @@ public class BrainAndBoomServiceImpl implements BrainAndBoomService {
 
     @Override
     public void addPlayer(String name) throws BandBException {
+        int posx=25;
+        int posy=25;
         if(cont==0){
             color="red";
         }else if(cont==1){
+            posx=750;
+            posy=550;
             color="black";
         }else if(cont==2){
+            posx=25;
+            posy=550;
             color="white";
         }else if(cont==3){
+            posx=750;
+            posy=25;
             color="purple";
         }
-        juego.addPlayer(name,color);
+        juego.addPlayer(name,color,posx,posy);
         cont+=1;
     }
 

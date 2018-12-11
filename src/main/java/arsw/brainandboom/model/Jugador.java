@@ -16,15 +16,24 @@ public class Jugador {
     private int numBombas;
     private Bomba bomba;
     private String color;
+    private int posx;
+    private int posy;
 
-    public Jugador(String nickName, Bomba bomba, String Color) {
+    public Jugador(String nickName, Bomba bomba, String color, int posx, int posy) {
         this.nickName = nickName;
         this.vida = 100;
         this.numBombas = 1;
         this.bomba = bomba;
-        this.color=Color;
+        this.color=color;
+        this.posx=posx;
+        this.posy=posy;
     }
-
+    public int getPosx(){
+        return posx;
+    }
+    public int getPosy(){
+        return posy;
+    }
     public String getNickName() {
         return nickName;
     }

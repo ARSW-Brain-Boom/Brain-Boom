@@ -15,10 +15,18 @@ var bnbController = (function () {
             console.log(error);
         });
     };
+    var getPlayers = function (callback) {
+        axios.get('/bnb/players').then(function (response) {
+            callback.onSuccess(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    };
 
     return {
         getMap: getMap,
-        setRoom: setRoom
+        setRoom: setRoom,
+        getPlayers: getPlayers
     };
 
 })();

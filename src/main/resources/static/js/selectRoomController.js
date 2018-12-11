@@ -12,6 +12,7 @@ function getPlayers(){
 				console.log(response.data[i]);
 				textHtml+='<li class="list-group-item list-group-item-primary text-center">';
 				textHtml+=response.data[i].nickName;
+     
 				if(response.data[i].nickName==localStorage.getItem('nickName')){
 					if(i==0){
 						localStorage.setItem("color","red");
@@ -22,7 +23,7 @@ function getPlayers(){
 					if(i==2){
 						localStorage.setItem("color","white");
 					}
-					if(i==2){
+					if(i==3){
 						localStorage.setItem("color","purple");
 					}
 					console.log(localStorage.getItem('color'));
