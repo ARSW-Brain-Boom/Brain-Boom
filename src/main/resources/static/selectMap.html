@@ -42,56 +42,44 @@
                 <span class="sr-only">Next</span>
               </a>
             </div>-->
-            <!--ROOM NUMBER-->
-            <div align="center" class="container-fluid">
-                <h3 class="text-warning" style="position: relative; left: 445px;">
-                    ROOM: 00000
-                </h3>
-            </div>
-        </body>
-    </div>
+
+
+          <!--ROOM NUMBER-->
+          <div class="container-fluid" align="center">
+            <button class="btn btn-success" style='position: relative; top:40px; left: 445px;' id="room">ROOM: </button></a>                    
+          </div>
+          
+          <!--MAP SELECT-->
+          <img src="Images/Map2.jpg" style='position: relative; width: 650px; height: 400px'/>
+
+          <!--BUTTON SELECT-->
+          <div class="container-fluid" align="center">
+            <button type="button" class="btn btn-success" style='position: relative; top: 10px; left: 0px;width: 290px; height: 50px'>Select Map</button>
+            <img src="Images/select.png" style='position: relative; top: 15px; left: -40px; width: 30px; height: 30px'/>
+          </div>
+          <!--LIST OF PLAYERS-->          
+          <div id="players" class="container-fluid" align="center"></div>          
+          
+        <body onload="getPlayers()">
+          <!--START BUTTON-->
+          <div class="container-fluid" align="center">
+            <form action="game.html" method="get">
+                <button id="start" type="submit" class="btn btn-danger" style='position: relative; top: -80px; width: 400px; height: 100px'><h1>START!</h1></button>
+                <div class="container-fluid" align="center">
+                <img src="Images/Start1.png" style='position: relative; top: -170px; left: -100px; width: 80px; height: 80px'/>
+                <img src="Images/Start1.png" style='position: relative; top: -170px; left: 100px; width: 80px; height: 80px'/>
+              </div>
+            </form>
+          </div>
+
+          <!-- Optional JavaScript -->
+          <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+          <script src="js/firstController.js" type="text/javascript"></script>
+          <script src="js/selectRoomController.js" type="text/javascript"></script>
+          </div>
+      </body>
+  
 </html>
-<!--MAP SELECT-->
-<div align="center" class="container-fluid">
-    <img src="Images/Map2.jpg"  align="center" style="position: relative;width: 650px; height: 400px"/>
-</div>
-<!--BUTTON SELECT-->
-<div align="center" class="container-fluid">
-    <button class="btn btn-success" style="position: relative; top: 10px; left: 0px;width: 290px; height: 50px" type="button">
-        Select Map
-    </button>
-    <img src="Images/select.png" style="position: relative; top: 15px; left: -40px; width: 30px; height: 30px"/>
-</div>
-<!--LIST OF PLAYERS-->
-<div align="center" class="container-fluid" id="players" style="position: absolute;"  >
-</div>
-<body onload="getPlayers()">
-    <!--START BUTTON-->
-    <div align="center" class="container-fluid">
-        <form action="game.html" method="get">
-            <button class="btn btn-danger" id="start" style="position: relative; top: 20px; width: 400px; height: 100px" type="submit">
-                <h1>
-                    START!
-                </h1>
-            </button>
-            <div align="center" class="container-fluid">
-                <img src="Images/Start1.png" style="position: relative; top: -70px; left: -100px; width: 80px; height: 80px"/>
-                <img src="Images/Start1.png" style="position: relative; top: -70px; left: 100px; width: 80px; height: 80px"/>
-            </div>
-        </form>
-    </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js ">
-    </script>
-    <script crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
-    </script>
-    <script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js">
-    </script>
-    <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
-    </script>
-    <script src="js/firstController.js" type="text/javascript">
-    </script>
-    <script src="js/selectRoomController.js" type="text/javascript">
-    </script>
-</body>

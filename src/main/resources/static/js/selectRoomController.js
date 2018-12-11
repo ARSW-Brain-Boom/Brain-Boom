@@ -1,10 +1,10 @@
 var player;
 
-function getPlayers() {
+
+function getPlayers(){
 	axios.get('/bnb/players').then(function(response) {
 			console.log("ENTRE");
 			console.log(response);
-
 			var table = document.getElementById('players');
 			var textHtml = '<ul class="list-group"' + " style='position: relative; left: -450px;top: -30px;width: 290px;'>" + '<li class="list-group-item text-center">Players in Room </li>';
 			for(i=0; i<response.data.length;i++){
@@ -19,8 +19,14 @@ function getPlayers() {
 		.catch(function(error) {
 			alert("Error");
 		});
-
+	getRoom();
 }
+
+function getRoom(){
+	room=localStorage.getItem('room');
+	var text=document.getElementById('room');
+	text.innerHTML+=room;
+
 
 function savePlayers(nickName) {
 	player = nickName;
