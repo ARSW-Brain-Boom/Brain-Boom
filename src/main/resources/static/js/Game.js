@@ -153,10 +153,13 @@ $(function () {
     obtenerDatosPersonajes();
     $("#start").click(function () {
         $.playground().startGame(function () {
-            $("#start").fadeTo(1000, 0, function () {
-                $(this).remove();
-                
+            $("#start").fadeTo(300, 0, function () {
+                $(this).remove();                
             });
+            $("#icons").fadeTo(300, 0, function () {
+                $(this).remove();                
+            });
+
         });
     });
 
