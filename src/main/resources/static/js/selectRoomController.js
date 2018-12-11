@@ -26,6 +26,7 @@ function getRoom(){
 	room=localStorage.getItem('room');
 	var text=document.getElementById('room');
 	text.innerHTML+=room;
+}
 
 
 function savePlayers(nickName) {
