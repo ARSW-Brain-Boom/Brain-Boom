@@ -11,4 +11,5 @@ package arsw.brainandboom.model;
  */
 public interface Poder {
 
+    public void setPowerToPlayer(Jugador jugador);
 }

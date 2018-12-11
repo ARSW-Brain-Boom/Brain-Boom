@@ -18,8 +18,15 @@ function saveNick(){
   if(nickName==""){
   	alert("Por favor ingrese un Nickname");
   } else{
-	  savePlayers(nickName);
-	  console.log(nickName);	  
+	  axios.post('/bnb/player', nickName)
+	  .then(function (response) {
+	    console.log(response);
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+    savePlayers(nickName);
+    console.log(nickName);  
 	  location.href='selectMap.html'  
 	}
   //

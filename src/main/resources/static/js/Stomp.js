@@ -1,7 +1,9 @@
 var stomp = (function () {
+    //var idPlayer="purple";
 
     var stompClient = null;
     var room = null;
+    var map = null;
 
     var connectAndSubscribe = function () {
         console.info('Connecting to WS...');
@@ -12,11 +14,12 @@ var stomp = (function () {
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/newposition.' + room, function (eventbody) {
-                game.updatePositionPlayer(parseInt(eventbody.body));
-                //game.updateStatePlayer(parseInt(eventbody.body));
+                var eventoJ=JSON.parse(eventbody.body);
+                game.updatePositionPlayer(parseInt(eventoJ.e),eventoJ.color);
             });
             stompClient.subscribe('/topic/newstate.' + room, function (eventbody) {
-                game.updateStatePlayer(parseInt(eventbody.body));
+                var eventoJ=JSON.parse(eventbody.body);
+                game.updateStatePlayer(parseInt(eventoJ.e),eventoJ.color);
             });
         });
     };
@@ -24,30 +27,25 @@ var stomp = (function () {
 
     return {
 
-        init: function () {
-            //websocket connection
-            //connectAndSubscribe();
-        },
-
-        publishPosition: function (e) {
+        publishPosition: function (ev,color) {
             if (stompClient != null) {
-                stompClient.send("/app/newposition." + room, {}, e);
+                stompClient.send("/app/newposition." + room, {}, JSON.stringify({e:ev,color:idPlayer}));
             } else {
                 alert("Al parecer no estás en una sala!");
             }
         },
 
-        publishState: function (e) {
+        publishState: function (ev,color) {
             if (stompClient != null) {
-                stompClient.send("/app/newstate." + room, {}, e);
+                stompClient.send("/app/newstate." + room, {}, JSON.stringify({e:ev,color:idPlayer}));
             } else {
                 alert("Al parecer no estás en una sala!");
             }
         },
 
-        connectSuscribe: function (r) {
-            if (!isNaN(parseInt(r))) {
-                room = r;
+        connectSuscribe: function (idRoom) {
+            if (!isNaN(parseInt(idRoom))) {
+                room = idRoom;
                 connectAndSubscribe();
             } else {
                 alert("Debe ingresar un número de sala válido");
@@ -58,10 +56,6 @@ var stomp = (function () {
             if (stompClient !== null) {
                 stompClient.disconnect();
                 stompClient = null;
-                document.getElementById("btnConnect").disabled = false;
-                document.getElementById("btnDisconnect").disabled = true;
-                can.getContext('2d').clearRect(0, 0, can.width, can.height);
-                can.removeEventListener("click", eventMouse);
             }
             //setConnected(false);
             console.log("Disconnected");
