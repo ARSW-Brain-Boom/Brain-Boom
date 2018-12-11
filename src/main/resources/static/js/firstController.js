@@ -4,10 +4,14 @@ var room=0;
 function saveNick(){
   nickName=document.getElementById('nick').value;
   room+=1;  
-  savePlayers(nickName);
-  console.log(nickName);
-  localStorage.setItem("room",room); 
-  location.href='selectMap.html'  
+  if(nickName==""){
+  	alert("Por favor ingrese un Nickname");
+  } else{
+	  savePlayers(nickName);
+	  console.log(nickName);
+	  localStorage.setItem("room",room); 
+	  location.href='selectMap.html'  
+	}
   //
 
 }
