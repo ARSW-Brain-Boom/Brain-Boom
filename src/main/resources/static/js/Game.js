@@ -296,7 +296,7 @@ function colisionBomba(x, y, color) {
                 jugadoresvivos.splice(i, 1);
                 jugadoreslist[i].vida = 1000;
                 if (jugadoresvivos.length == 1) {
-                    alert("gano el jugador " + jugadoresvivos[0].color);
+                    alert("gano el jugador " + jugadoresvivos[0]);
                 }
             }
         }
